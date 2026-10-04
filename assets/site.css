@@ -118,6 +118,15 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:400px){.guide-tiles{grid-template-columns:1fr}.quick-paths nav{grid-template-columns:1fr}.directory-head{gap:10px}.directory-head img{width:64px}.lower-page .ad-metrics dd{font-size:13px}.subpage .doc-wrap,.subpage .wide-wrap{padding-inline:16px}.fact-sheet>div{grid-template-columns:1fr;gap:4px}.subpage .purpose-buttons{grid-template-columns:1fr}.subpage .filter-row{display:flex;flex-direction:column;align-items:stretch}.subpage .filter-row label{width:100%}.match-result-tools .site-button{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 
+/* User-requested font unification across all 24 live pages, including the FV.
+   One family for Japanese, Latin, numbers and controls; retain size/weight hierarchy. */
+:is(.homepage,.subpage),
+:is(.homepage,.subpage) *,
+:is(.homepage,.subpage) *::before,
+:is(.homepage,.subpage) *::after{
+ font-family:"Select Noto","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif!important;
+}
+
 .lower-page .ad-card:nth-child(n){border-top-color:#236345}.subpage .purpose,.subpage .purpose-icon,.subpage .text-link{color:#236345}.subpage .purpose.active{border-color:#236345;box-shadow:0 3px 0 #236345}.subpage .purpose:hover{border-color:#236345}.subpage .finder .eyebrow{color:#236345}.subpage .table-views button[aria-pressed=true]{background:#236345!important;border-color:#236345;color:#fff}.subpage .table-views button{color:#236345;border-color:#236345}.subpage .notice{border-left-color:#236345}.subpage .overview-table thead th{border-bottom-color:#236345}.subpage .metrics>div:first-child dd{color:#172b27;font-size:17px}.lower-page .faq-list summary>span,.lower-page .calc-result output{color:#236345}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

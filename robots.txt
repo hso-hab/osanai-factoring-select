@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /
+Allow: /osanai-factoring-select/
+Sitemap: https://hso-hab.github.io/osanai-factoring-select/sitemap.xml

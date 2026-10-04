@@ -19,6 +19,7 @@
  window.trackSiteEvent=(name,params={})=>{
   if(!allowed.has(name))return;
   const safe={page_path:path};
+  if(['ad_card','comparison','diagnosis','detail','detail_sticky','directory','feature','other'].includes(params.link_location))safe.link_location=params.link_location;
   if(config.serviceIds?.includes(params.service_id))safe.service_id=params.service_id;
   for(const k of ['result_count','check_count'])if(Number.isInteger(params[k])&&params[k]>=0&&params[k]<=10)safe[k]=params[k];
   // In-memory diagnostics only; never transmitted without the configured ID and consent.
@@ -34,11 +35,13 @@
  }
  document.addEventListener('click',e=>{
   const control=e.target.closest('[data-consent]');if(control&&id)choose(control.dataset.consent);
-  const out=e.target.closest('[data-outbound]');if(out)window.trackSiteEvent('official_click',{service_id:out.dataset.outbound});
+  const out=e.target.closest('[data-outbound]');if(out)window.trackSiteEvent('official_click',{service_id:out.dataset.outbound,link_location:out.dataset.location||(out.closest('.ad-card')?'ad_card':out.closest('.feature-ad')?'feature':'other')});
  });
  document.addEventListener('change',e=>{if(e.target.matches('[data-compare]'))window.trackSiteEvent('compare_select',{service_id:e.target.dataset.compare});});
  let calcSent=false;document.querySelector('#calculator')?.addEventListener('input',()=>{if(!calcSent){window.trackSiteEvent('calculator_use');calcSent=true}});
  if(id&&consent==='unset'){const box=document.createElement('aside');box.className='consent-notice';box.setAttribute('aria-label','アクセス解析の選択');box.innerHTML=`<p>閲覧・ボタン操作をアクセス解析に利用してよいですか？診断の入力金額や自由記述は送りません。拒否しても全機能を利用できます。<a href="${config.basePath}privacy/">詳しい取扱い</a></p><button class="site-button" data-consent="denied">許可しない</button><button class="site-button solid" data-consent="granted">許可する</button>`;document.body.append(box);}
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){const menu=document.querySelector('.mobile-menu[open]');if(menu){menu.open=false;menu.querySelector('summary').focus();}}});
+ document.querySelector('.mobile-menu')?.addEventListener('click',e=>{if(e.target.closest('a'))e.currentTarget.open=false});
  reflect();start();
  const serviceId=path.match(/\/company\/([a-z]+)\/$/)?.[1];if(serviceId)window.trackSiteEvent('detail_view',{service_id:serviceId});
 })();

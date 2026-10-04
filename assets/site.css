@@ -129,4 +129,32 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 
 .lower-page .ad-card:nth-child(n){border-top-color:#236345}.subpage .purpose,.subpage .purpose-icon,.subpage .text-link{color:#236345}.subpage .purpose.active{border-color:#236345;box-shadow:0 3px 0 #236345}.subpage .purpose:hover{border-color:#236345}.subpage .finder .eyebrow{color:#236345}.subpage .table-views button[aria-pressed=true]{background:#236345!important;border-color:#236345;color:#fff}.subpage .table-views button{color:#236345;border-color:#236345}.subpage .notice{border-left-color:#236345}.subpage .overview-table thead th{border-bottom-color:#236345}.subpage .metrics>div:first-child dd{color:#172b27;font-size:17px}.lower-page .faq-list summary>span,.lower-page .calc-result output{color:#236345}
 
+/* SEO reading paths and responsive comparison, v12. Approved FV is untouched. */
+.mobile-menu,.mobile-official{display:none}
+.article-summary,.detail-next{border:1px solid var(--v10-rule);border-left:4px solid #236345;border-radius:8px;padding:20px;margin:24px 0;background:#fff}
+.article-summary h2,.detail-next h2{font-size:20px;margin:0 0 10px}.article-summary p,.detail-next p{font-size:15px;line-height:1.9;margin:0 0 12px}
+.reading-cards{display:grid;grid-template-columns:1fr;gap:14px}.reading-cards article{border:1px solid var(--v10-rule);border-radius:10px;padding:18px}.reading-cards h3{margin:0 0 8px}.reading-cards p{margin:8px 0}.reading-links{display:grid;gap:12px}.reading-links a{display:block;padding:12px;border:1px solid var(--v10-rule);border-radius:8px;font-size:15px}.article-byline{font-size:13px;margin:22px 0}.article-byline a{color:#236345;text-decoration:underline}
+:is(.homepage,.subpage) .comparison-section .site-button.official{display:flex;background:#bb490e;color:#fff!important;font-size:13px;line-height:1.6;margin-top:10px;min-height:44px;padding:10px;text-decoration:none;border:1px solid #bb490e;white-space:normal;text-align:center}
+.directory-actions .site-button.official{width:100%;font-size:14px}.match-card>.site-button{margin:8px 10px 0 0}
+@media(max-width:760px){
+ .site-header .header-inner{position:relative}.site-header>.header-inner>nav{display:none}.mobile-menu{display:block;margin-left:auto;flex:none}.mobile-menu summary{cursor:pointer;font-size:13px;font-weight:700;padding:10px;border:1px solid #236345;border-radius:6px;color:#236345;list-style:none}.mobile-menu summary::-webkit-details-marker{display:none}.mobile-menu summary::after{content:' ＋'}.mobile-menu[open] summary::after{content:' −'}
+ .site-header .mobile-menu nav{position:absolute;right:0;top:100%;display:grid;min-width:230px;max-width:calc(100vw - 32px);padding:12px;border:1px solid var(--v10-rule);border-radius:8px;background:#fff;box-shadow:0 6px 16px #0001;z-index:100;overflow:visible}.site-header .mobile-menu nav a{display:block!important;color:#236345;font-size:14px;padding:12px;white-space:normal}
+ :is(.homepage,.subpage) .overview-table{display:block;min-width:0!important;width:100%;border:0}
+ :is(.homepage,.subpage) .overview-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ :is(.homepage,.subpage) .overview-table tbody{display:grid;gap:18px;width:100%}
+ :is(.homepage,.subpage) .overview-table tbody tr{display:block;border:1px solid #dce6e0;border-radius:10px;padding:12px;width:100%;background:#fff}
+ :is(.homepage,.subpage) .overview-table tbody th{position:static;display:block;width:auto;min-width:0!important;border:0;border-bottom:2px solid #236345;padding:10px 4px;text-align:left;background:#fff!important}
+ :is(.homepage,.subpage) .overview-table td{display:block;width:auto;min-width:0!important;padding:12px 4px;border:0;border-bottom:1px solid #e4eae6;text-align:left;font-size:15px;background:#fff}
+ :is(.homepage,.subpage) .overview-table td:last-child{border-bottom:0}
+ :is(.homepage,.subpage) .overview-table td::before{content:attr(data-label);display:block;font-size:12px;font-weight:500;color:#52665c;margin-bottom:6px}
+ :is(.homepage,.subpage) .overview-table td small{font-size:12px;line-height:1.9;white-space:normal}
+ :is(.homepage,.subpage) .overview-table .table-name{font-size:19px!important}
+ .mobile-official{position:fixed;bottom:0;left:0;right:0;z-index:90;display:flex;align-items:center;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--v10-rule);background:#fff;box-shadow:0 -2px 10px #0001}
+ .mobile-official span{font-size:12px;font-weight:700;flex:1;min-width:0;overflow-wrap:anywhere}.mobile-official .site-button{flex:2;font-size:12px;padding:10px;min-height:44px}
+ body:has(.mobile-official) .site-footer{padding-bottom:120px}
+ .match-card>.site-button{width:100%;margin-right:0}
+}
+.subpage .doc-head h1{white-space:normal}
+@media(max-width:760px){:is(.homepage,.subpage) .overview-table :is(th,td){max-width:none}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

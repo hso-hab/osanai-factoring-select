@@ -173,4 +173,34 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .homepage .green-photo-hero .hero-person figcaption{color:#173e33;text-shadow:none}
 @media(max-width:760px){.homepage .green-photo-hero{background-position:58% center}.homepage .green-photo-hero .hero-person img{border-width:3px}}
 
+/* Reference-led compact purpose cards. Keep the selected FV and detail pages intact. */
+.homepage .lower-page .ad-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.homepage .lower-page .compact-company{display:flex;flex-direction:column;border:1px solid #dce6e0;border-radius:15px;box-shadow:none;overflow:hidden}
+.compact-company-main{display:grid;grid-template-columns:80px minmax(0,1fr);gap:16px;align-items:center;padding:16px 18px 4px;color:#172b27;border-radius:14px}
+.compact-company-main img{display:block;width:80px;height:54px;object-fit:contain;border:1px solid #e2e8e4;border-radius:6px}
+.compact-company-copy{min-width:0}.compact-company-kicker{margin:0 0 3px;font-size:11px;font-weight:700;line-height:1.6;color:#236345}
+.compact-company h4{font-size:18px;font-weight:800;line-height:1.5;margin:0 0 3px;letter-spacing:0}
+.compact-company-summary{margin:0;font-size:12px;line-height:1.75;color:#52665c}
+.compact-company-main:hover h4{color:#236345;text-decoration:underline;text-underline-offset:3px}
+.compact-company-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 18px 5px 114px;margin-top:auto}
+.compact-company-footer a{display:inline-flex;align-items:center;min-height:32px;font-size:11px;color:#236345;line-height:1.5}
+.compact-company-official{font-weight:700}.compact-company-footer a:hover{text-decoration:underline}
+.homepage .lower-page .ad-category-heading{border-left:5px solid #236345;padding-left:16px;gap:0}
+.homepage .lower-page .ad-category-symbol{display:none}
+.homepage .lower-page .ad-category-heading h3{font-size:25px;line-height:1.45}
+.homepage .lower-page .ad-category-heading>div>p{font-size:10px;letter-spacing:.1em}
+.homepage .lower-page .ad-category-description{margin:8px 0 4px;font-size:13px}
+.homepage .lower-page .ad-disclaimer{font-size:11px;margin:0 0 16px;line-height:1.7}
+.homepage .lower-page .ad-category+.ad-category{padding-top:24px;margin-top:26px}
+.compact-category-footer{display:flex;justify-content:flex-end;margin-top:14px}
+.compact-category-footer a{display:inline-flex;align-items:center;min-height:44px;padding:10px 20px;border-radius:24px;background-color:#236345!important;color:#fff;font-size:12px;font-weight:700}
+@media(max-width:760px){
+ .homepage .lower-page .ad-grid{grid-template-columns:1fr;gap:12px}
+ .homepage .lower-page .ad-category-heading h3{font-size:21px}
+ .compact-company-main{padding:14px 14px 3px;gap:12px;grid-template-columns:68px minmax(0,1fr)}
+ .compact-company-main img{width:68px;height:48px}
+ .compact-company h4{font-size:17px}.compact-company-kicker{font-size:10px}.compact-company-summary{font-size:12px}
+ .compact-company-footer{padding:0 14px 5px 94px}
+}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

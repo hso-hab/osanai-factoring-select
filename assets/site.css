@@ -221,4 +221,43 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:760px){.topic-grid{grid-template-columns:1fr}.topic-service{padding:18px}.purpose-tiles{grid-template-columns:1fr}.footer-grid{gap:24px 18px}.footer-intro{grid-column:1/-1}.footer-column a{min-height:36px}.footer-bottom{flex-direction:column;gap:10px}.expanded-footer{padding-top:30px}}
 @media(max-width:359px){.footer-grid{grid-template-columns:1fr}.footer-intro{grid-column:auto}}
 
+/* Compact comparison views: preserve every figure and its qualifying note. */
+:is(.homepage,.subpage) .comparison-section>.section{padding-block:28px}
+:is(.homepage,.subpage) .comparison-section .section-heading{margin-bottom:12px;gap:14px}
+:is(.homepage,.subpage) .comparison-section .section-heading h2{font-size:25px;line-height:1.5}
+:is(.homepage,.subpage) .comparison-section .section-heading h2 br{display:none}
+:is(.homepage,.subpage) .comparison-section .eyebrow{margin-bottom:6px}
+:is(.homepage,.subpage) .comparison-section .table-views button{font-size:12px;padding:8px 13px;min-height:36px}
+:is(.homepage,.subpage) .comparison-section #comparison-status,
+:is(.homepage,.subpage) .comparison-section .comparison-note{font-size:11px;line-height:1.7;margin-block:10px}
+:is(.homepage,.subpage) .comparison-section .table-scroll{margin-top:10px;box-shadow:none}
+:is(.homepage,.subpage) #comparison-table :is(th,td){padding:10px 12px;font-size:13px;line-height:1.6;vertical-align:top}
+:is(.homepage,.subpage) #comparison-table small{font-size:11px;line-height:1.6;margin-top:4px;white-space:normal}
+:is(.homepage,.subpage) #comparison-table .table-name{font-size:14px!important;line-height:1.6;min-width:0;white-space:normal;overflow-wrap:anywhere}
+:is(.homepage,.subpage) #comparison-table .fee-cell{font-size:15px;font-weight:800;color:#236345}
+:is(.homepage,.subpage) #comparison-table .text-link{font-size:11px;line-height:1.6;margin-top:5px}
+:is(.homepage,.subpage) #comparison-table .site-button.official{font-size:11px;line-height:1.5;min-height:32px;padding:6px 8px;margin-top:6px;border-radius:5px}
+:is(.homepage,.subpage) #comparison-table.overview-table{min-width:780px;table-layout:fixed}
+:is(.homepage,.subpage) #comparison-table.overview-table thead th{font-size:12px;padding-block:10px;border-bottom-width:2px}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:first-child{width:17%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(2){width:19%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(3){width:22%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(4){width:20%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(5){width:22%}
+:is(.homepage,.subpage) #comparison-table:not(.overview-table) :is(th,td){min-width:165px;max-width:210px}
+:is(.homepage,.subpage) #comparison-table:not(.overview-table) tr>:first-child{min-width:100px;width:100px;font-size:12px}
+@media(max-width:760px){
+ :is(.homepage,.subpage) .comparison-section .section-heading h2{font-size:22px}
+ :is(.homepage,.subpage) #comparison-table.overview-table{min-width:0}
+ :is(.homepage,.subpage) #comparison-table.overview-table tbody{gap:10px}
+ :is(.homepage,.subpage) #comparison-table.overview-table tbody tr{padding:8px 12px;border-radius:8px}
+ :is(.homepage,.subpage) #comparison-table.overview-table tbody tr>:nth-child(n){width:auto;min-width:0!important;max-width:none}
+ :is(.homepage,.subpage) #comparison-table.overview-table tbody th{padding:6px 0 8px;border-bottom-width:1px}
+ :is(.homepage,.subpage) #comparison-table.overview-table .table-name{font-size:16px!important}
+ :is(.homepage,.subpage) #comparison-table.overview-table td{position:relative;padding:8px 0 8px 84px;min-height:37px;font-size:13px;line-height:1.6}
+ :is(.homepage,.subpage) #comparison-table.overview-table td::before{position:absolute;left:0;top:9px;width:76px;margin:0;font-size:11px;line-height:1.6;color:#52665c}
+ :is(.homepage,.subpage) #comparison-table.overview-table td small{font-size:11px;line-height:1.65}
+ :is(.homepage,.subpage) #comparison-table.overview-table td .site-button.official{display:inline-flex;min-height:34px;padding-inline:12px}
+}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

@@ -260,9 +260,10 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
  :is(.homepage,.subpage) #comparison-table.overview-table td .site-button.official{display:inline-flex;min-height:34px;padding-inline:12px}
 }
 
-/* Company thumbnails fit within the compact comparison layout. */
+/* Company thumbnails expand into existing cell whitespace without affecting row sizing. */
 :is(.homepage,.subpage) #comparison-table .table-company-label{display:block;font-size:inherit;line-height:inherit}
-:is(.homepage,.subpage) #comparison-table .table-company-image{display:block;width:64px;height:30px;max-width:100%;object-fit:contain;margin-top:4px;border:1px solid #dce6e0;border-radius:3px}
+:is(.homepage,.subpage) #comparison-table .table-image-slot{display:block;position:relative;width:64px;height:30px;max-width:100%;margin-top:4px}
+:is(.homepage,.subpage) #comparison-table .table-company-image{position:absolute;left:0;top:0;display:block;width:100%;height:100%;max-width:none;object-fit:contain;border:1px solid #dce6e0;border-radius:3px}
 :is(.homepage,.subpage) #comparison-table:not(.overview-table) tbody :is(th,td){padding-block:5px}
 @media(max-width:760px){
  :is(.homepage,.subpage) #comparison-table.overview-table td{padding-top:4px;padding-bottom:4px;min-height:29px}
@@ -270,10 +271,10 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
  :is(.homepage,.subpage) #comparison-table.overview-table td small{margin-top:3px}
 }
 @media(min-width:761px) and (max-width:1100px){
- :is(.homepage,.subpage) #comparison-table .table-company-image{width:44px;height:20px}
+ :is(.homepage,.subpage) #comparison-table .table-image-slot{width:44px;height:20px}
 }
 @media(min-width:761px){
- :is(.homepage,.subpage) #comparison-table.overview-table th:has(>small) .table-company-image{width:44px;height:20px;margin-top:0}
+ :is(.homepage,.subpage) #comparison-table.overview-table th:has(>small) .table-image-slot{width:44px;height:20px;margin-top:0}
 }
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

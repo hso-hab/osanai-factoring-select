@@ -157,4 +157,20 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .subpage .doc-head h1{white-space:normal}
 @media(max-width:760px){:is(.homepage,.subpage) .overview-table :is(th,td){max-width:none}}
 
+/* Selected D: light mint skyline. Scoped to the home hero only. */
+.homepage .green-photo-hero{
+ --ink:#183e34;--muted:#365e50;
+ background-color:#d8f7e9!important;
+ background-image:linear-gradient(90deg,#edfff4d9,#edfff426),url('hero/mint.jpg')!important;
+ background-size:cover;background-position:center 60%;overflow:hidden;
+}
+.homepage .green-photo-hero *{background-color:transparent!important}
+.homepage .green-photo-hero h1 em{color:#125b46}
+.homepage .green-photo-hero .primary{background-color:#236345!important;color:#fff;border-color:#236345;box-shadow:0 4px 0 #173f2f}
+.homepage .green-photo-hero .primary:hover{background-color:#1b5138!important}
+.homepage .green-photo-hero .hero-photo-label{background-color:#fff!important}
+.homepage .green-photo-hero .hero-person img{border:5px solid #ffffffb3;box-shadow:0 18px 40px #002d4030}
+.homepage .green-photo-hero .hero-person figcaption{color:#173e33;text-shadow:none}
+@media(max-width:760px){.homepage .green-photo-hero{background-position:58% center}.homepage .green-photo-hero .hero-person img{border-width:3px}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

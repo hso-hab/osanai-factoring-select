@@ -52,6 +52,7 @@ function purposeGuide(items){
  ];
  return groups.map(g=>`<article class="purpose-guide-card"><h3><span aria-hidden="true">${g.symbol}</span>${g.title}</h3><ul>${g.ids.map(id=>{const s=items.find(s=>s.id===id);return `<li><button data-detail="${s.id}"><b>${esc(s.name)}${s.id==='hso'?'<small class="own-pr">自社PR</small>':''}</b><span>${esc(s[g.field])}${g.note&&s[g.note]?`<small>${esc(s[g.note])}</small>`:''}</span><i aria-hidden="true">↗</i></button></li>`}).join('')}</ul>${g.purpose==='line'?'<p class="purpose-context">対応サービスを確認してから、詳しい条件と出典へ。LINEの受付時間と審査・振込の時間は区別して確認しましょう。</p>':''}<button class="purpose-guide-more" data-jump-purpose="${g.purpose}">${g.link}<span>→</span></button></article>`).join('');
 }
+function tableCompany(s){return `<a class="table-name" href="/osanai-factoring-select/company/${s.id}/"><span class="table-company-label">${esc(s.name)} ↗</span><img class="table-company-image" src="/osanai-factoring-select/${esc(s.image.src)}" width="64" height="30" alt="" loading="lazy" decoding="async"></a>`;}
 function render(){
  if(!$('#service-list'))return;
  const query=state.search.normalize('NFKC').toLowerCase().trim();
@@ -66,6 +67,7 @@ function render(){
  document.querySelectorAll('[data-purpose]').forEach(b=>{const active=b.dataset.purpose===state.purpose;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
  $('#sort').value=state.sort;$('#business').value=state.business;$('#search').value=state.search;
 }
+
 function tableMetric(s,key,note){return s[key]?`<span class="${key==='fee'?'fee-cell':''}">${esc(s[key])}</span>${s[note]?`<small>${esc(s[note])}</small>`:''}`:'<span aria-label="数値非掲載">—</span>';}
 function renderComparison(){
  if(!$('#comparison-table'))return;
@@ -74,9 +76,9 @@ function renderComparison(){
  const table=$('#comparison-table');table.classList.toggle('overview-table',tableView==='overview');
  document.querySelectorAll('[data-table-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tableView===tableView)));
  if(tableView==='overview'){
-  table.innerHTML=`<caption class="sr-only">ファクタリング会社の条件一覧</caption><thead><tr><th scope="col">サービス名</th><th scope="col">公表手数料</th><th scope="col">入金の目安</th><th scope="col">買取可能額</th><th scope="col">手続き・掲載情報</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row"><a class="table-name" href="/osanai-factoring-select/company/${s.id}/">${esc(s.name)} ↗</a>${s.id==='hso'?'<small>広告・PR｜自社サービス</small>':''}</th>${metricDefs.map(([key,label,note])=>`<td data-label="${label}">${tableMetric(s,key,note)}</td>`).join('')}<td data-label="手続き・詳細">${esc(s.channel||s.audience)}<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">条件・出典を見る →</a><small>確認：${esc(s.checkedAt)}</small>${officialLink(s,"comparison")}</td></tr>`).join('')}</tbody>`;
+  table.innerHTML=`<caption class="sr-only">ファクタリング会社の条件一覧</caption><thead><tr><th scope="col">サービス名</th><th scope="col">公表手数料</th><th scope="col">入金の目安</th><th scope="col">買取可能額</th><th scope="col">手続き・掲載情報</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row">${tableCompany(s)}${s.id==='hso'?'<small>広告・PR｜自社サービス</small>':''}</th>${metricDefs.map(([key,label,note])=>`<td data-label="${label}">${tableMetric(s,key,note)}</td>`).join('')}<td data-label="手続き・詳細">${esc(s.channel||s.audience)}<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">条件・出典を見る →</a><small>確認：${esc(s.checkedAt)}</small>${officialLink(s,"comparison")}</td></tr>`).join('')}</tbody>`;
  }else{
- $('#comparison-table').innerHTML=`<caption class="sr-only">ファクタリング会社の条件比較</caption><thead><tr><th scope="col">比較項目</th>${items.map(s=>`<th scope="col"><a class="table-name" href="/osanai-factoring-select/company/${s.id}/">${esc(s.name)} <span>↗</span></a></th>`).join('')}</tr></thead><tbody>${rows.map(([label,fn])=>`<tr><th scope="row">${label}</th>${items.map(s=>`<td>${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+ $('#comparison-table').innerHTML=`<caption class="sr-only">ファクタリング会社の条件比較</caption><thead><tr><th scope="col">比較項目</th>${items.map(s=>`<th scope="col">${tableCompany(s)}</th>`).join('')}</tr></thead><tbody>${rows.map(([label,fn])=>`<tr><th scope="row">${label}</th>${items.map(s=>`<td>${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
  }
  $('#comparison-status').textContent=selected.size?`選択した${items.length}社を表示：${items.map(s=>s.name).join(' / ')}`:`全${services.length}社を表示しています。「比較に追加」で選んだ会社だけに絞れます。`;
  if($('#tray')){$('#tray').hidden=selected.size===0;$('#selected-count').textContent=selected.size;}

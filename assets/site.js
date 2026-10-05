@@ -69,21 +69,6 @@ function render(){
 }
 
 function tableMetric(s,key,note){return s[key]?`<span class="${key==='fee'?'fee-cell':''}">${esc(s[key])}</span>${s[note]?`<small>${esc(s[note])}</small>`:''}`:'<span aria-label="数値非掲載">—</span>';}
-let imageFitFrame=0;
-function fitComparisonImages(){
- cancelAnimationFrame(imageFitFrame);
- imageFitFrame=requestAnimationFrame(()=>{
-  document.querySelectorAll('#comparison-table .table-image-slot').forEach(slot=>{
-   const cell=slot.closest('th'),image=slot.querySelector('img'),rect=slot.getBoundingClientRect(),cellRect=cell.getBoundingClientRect(),css=getComputedStyle(cell);
-   const disclosure=cell.querySelector(':scope > small');
-   const bottom=disclosure?disclosure.getBoundingClientRect().top-3:cellRect.bottom-parseFloat(css.paddingBottom)-1;
-   const roomHeight=Math.max(0,bottom-rect.top),roomWidth=Math.max(0,cellRect.right-parseFloat(css.paddingRight)-rect.left-1);
-   const ratio=Number(image.getAttribute('width'))/Number(image.getAttribute('height'));
-   const width=Math.max(0,Math.min(roomWidth,roomHeight*ratio));
-   image.style.width=width+'px';image.style.height=width/ratio+'px';
-  });
- });
-}
 function renderComparison(){
  if(!$('#comparison-table'))return;
  const items=selected.size?services.filter(s=>selected.has(s.id)):services;
@@ -97,7 +82,6 @@ function renderComparison(){
  }
  $('#comparison-status').textContent=selected.size?`選択した${items.length}社を表示：${items.map(s=>s.name).join(' / ')}`:`全${services.length}社を表示しています。「比較に追加」で選んだ会社だけに絞れます。`;
  if($('#tray')){$('#tray').hidden=selected.size===0;$('#selected-count').textContent=selected.size;}
- fitComparisonImages();
 }
 function resetFilters(){Object.assign(state,{purpose:'all',business:'all',search:'',sort:'default'});render();}
 function clearSelection(){selected.clear();document.querySelectorAll('[data-compare]').forEach(c=>c.checked=false);renderComparison();}
@@ -144,6 +128,4 @@ if(typeof document!=='undefined'){
  $('#quick-finder')?.addEventListener('submit',e=>{e.preventDefault();applyPurpose($('#quick-purpose').value,$('#quick-range').value);});
  $('#calculator')?.addEventListener('submit',e=>e.preventDefault());$('#calculator')?.addEventListener('input',calculate);
  render();renderComparison();calculate();
- window.addEventListener('resize',fitComparisonImages);
- document.fonts.ready.then(fitComparisonImages);
 }

@@ -292,4 +292,38 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
  .homepage .lower-page .feature-ad{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr}
 }
 
+/* Dense, reference-led comparison: retain conditions; scroll on narrow screens. */
+:is(.homepage,.subpage) #comparison-table.overview-table{display:table;width:100%;min-width:940px!important;table-layout:fixed;border-collapse:collapse}
+:is(.homepage,.subpage) #comparison-table.overview-table thead{display:table-header-group;position:static;width:auto;height:auto;overflow:visible;clip:auto}
+:is(.homepage,.subpage) #comparison-table.overview-table tbody{display:table-row-group}
+:is(.homepage,.subpage) #comparison-table.overview-table tr{display:table-row;border:0;padding:0}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(n){display:table-cell;position:static;min-width:0!important;max-width:none;padding:8px 12px;border:0;border-bottom:1px solid #e1e8e5;text-align:left;vertical-align:middle;font-size:12px;font-weight:400;line-height:1.5;background:#fff}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:first-child{width:17%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(2){width:18%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(3){width:27%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(4){width:20%}
+:is(.homepage,.subpage) #comparison-table.overview-table tr>:nth-child(5){width:18%}
+:is(.homepage,.subpage) #comparison-table.overview-table thead th{font-size:12px;font-weight:700;padding-block:13px;background:#f4f7f5!important}
+:is(.homepage,.subpage) #comparison-table.overview-table td::before{display:none}
+:is(.homepage,.subpage) #comparison-table.overview-table .table-name{display:block;font-size:12px!important;font-weight:700;line-height:1.5}
+:is(.homepage,.subpage) #comparison-table.overview-table small{display:block;font-size:10.5px;line-height:1.5;margin-top:3px;color:#52665c}
+:is(.homepage,.subpage) #comparison-table .table-image-slot,:is(.homepage,.subpage) #comparison-table .table-company-image{width:72px;height:33.75px}
+:is(.homepage,.subpage) #comparison-table.overview-table .text-link{display:block;font-size:11px;margin-top:3px;line-height:1.5}
+:is(.homepage,.subpage) #comparison-table.overview-table .site-button.official{display:inline-flex;min-height:24px;margin:2px 0 0;padding:2px 0;border:0;border-radius:0;box-shadow:none;background:#fff!important;color:#236345;font-size:11px;line-height:1.5;text-decoration:underline;text-underline-offset:3px}
+:is(.homepage,.subpage) .comparison-section .table-scroll{border:1px solid #e1e8e5;border-radius:12px;overflow-x:auto;overscroll-behavior-x:contain}
+:is(.homepage,.subpage) .comparison-section .section-heading h2{font-size:28px}
+.selection-criteria{padding-block:40px 48px;scroll-margin-top:100px}
+.criteria-heading{text-align:center;margin-bottom:26px}.criteria-heading .eyebrow{color:#236345;font-size:12px;letter-spacing:.12em;margin:0 0 10px}.criteria-heading h2{font-size:26px;line-height:1.5;margin:0 0 10px}.criteria-heading>p:last-child{font-size:13px;color:#52665c}
+.selection-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.selection-grid article{display:flex;flex-direction:column;border:1px solid #dce6e0;border-radius:16px;padding:22px 24px;background:#fff}
+.selection-grid h3{font-size:15px;line-height:1.6;margin:0 0 8px}.selection-grid p{font-size:13px;color:#52665c;line-height:1.9;margin:0}.selection-grid a{margin-top:auto;padding-top:8px;font-size:12px;color:#236345;font-weight:700}.criteria-note{font-size:11px;line-height:1.9;color:#52665c;margin:18px 0 0}.criteria-note a{color:#236345}
+@media(max-width:760px){
+ :is(.homepage,.subpage) .comparison-section .section-heading h2{font-size:22px}
+ :is(.homepage,.subpage) .comparison-section .swipe{display:block}
+ :is(.homepage,.subpage) #comparison-table.overview-table tr>:first-child{position:sticky;left:0;z-index:1;box-shadow:1px 0 #e1e8e5}
+ .selection-criteria{padding-block:28px 36px}.criteria-heading h2{font-size:22px}.criteria-heading>p:last-child{font-size:12px}.selection-grid{grid-template-columns:1fr;gap:12px}.selection-grid article{padding:18px}.selection-grid h3{font-size:14px}
+}
+:is(.homepage,.subpage) #comparison-table.overview-table .site-button.official{color:#236345!important}
+.homepage .lower-page .selection-criteria .criteria-heading .eyebrow{text-align:center;display:block}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

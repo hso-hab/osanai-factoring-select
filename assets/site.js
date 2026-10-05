@@ -53,6 +53,9 @@ function purposeGuide(items){
  return groups.map(g=>`<article class="purpose-guide-card"><h3><span aria-hidden="true">${g.symbol}</span>${g.title}</h3><ul>${g.ids.map(id=>{const s=items.find(s=>s.id===id);return `<li><button data-detail="${s.id}"><b>${esc(s.name)}${s.id==='hso'?'<small class="own-pr">自社PR</small>':''}</b><span>${esc(s[g.field])}${g.note&&s[g.note]?`<small>${esc(s[g.note])}</small>`:''}</span><i aria-hidden="true">↗</i></button></li>`}).join('')}</ul>${g.purpose==='line'?'<p class="purpose-context">対応サービスを確認してから、詳しい条件と出典へ。LINEの受付時間と審査・振込の時間は区別して確認しましょう。</p>':''}<button class="purpose-guide-more" data-jump-purpose="${g.purpose}">${g.link}<span>→</span></button></article>`).join('');
 }
 function tableCompany(s){return `<a class="table-name" href="/osanai-factoring-select/company/${s.id}/"><span class="table-company-label">${esc(s.name)} ↗</span><span class="table-image-slot"><img class="table-company-image" src="/osanai-factoring-select/${esc(s.image.src)}" width="${s.image.width}" height="${s.image.height}" alt="" loading="lazy" decoding="async"></span></a>`;}
+function tableOverview(items){
+ return `<caption class="sr-only">ファクタリング会社の条件一覧</caption><thead><tr><th scope="col">会社</th><th scope="col">公表手数料</th><th scope="col">入金の目安</th><th scope="col">買取可能額</th><th scope="col">手続き・詳細</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row">${tableCompany(s)}${s.id==='hso'?'<small>広告・PR｜自社サービス</small>':''}</th>${metricDefs.map(([key,label,note])=>`<td data-label="${label}">${s[key]?`<span>${esc(s[key])}</span>${s[note]?`<small>${esc(s[note])}</small>`:''}`:'<span aria-label="数値非掲載">—</span>'}</td>`).join('')}<td data-label="手続き・詳細">${esc(s.channel||s.audience)}<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">条件・出典 ↗</a><span class="table-links">${officialLink(s,"comparison").replace("公式サイトで確認 ↗","公式サイト ↗")}</span></td></tr>`).join('')}</tbody>`;
+}
 function render(){
  if(!$('#service-list'))return;
  const query=state.search.normalize('NFKC').toLowerCase().trim();
@@ -76,7 +79,7 @@ function renderComparison(){
  const table=$('#comparison-table');table.classList.toggle('overview-table',tableView==='overview');
  document.querySelectorAll('[data-table-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tableView===tableView)));
  if(tableView==='overview'){
-  table.innerHTML=`<caption class="sr-only">ファクタリング会社の条件一覧</caption><thead><tr><th scope="col">サービス名</th><th scope="col">公表手数料</th><th scope="col">入金の目安</th><th scope="col">買取可能額</th><th scope="col">手続き・掲載情報</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row">${tableCompany(s)}${s.id==='hso'?'<small>広告・PR｜自社サービス</small>':''}</th>${metricDefs.map(([key,label,note])=>`<td data-label="${label}">${tableMetric(s,key,note)}</td>`).join('')}<td data-label="手続き・詳細">${esc(s.channel||s.audience)}<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">条件・出典を見る →</a><small>確認：${esc(s.checkedAt)}</small>${officialLink(s,"comparison")}</td></tr>`).join('')}</tbody>`;
+  table.innerHTML=tableOverview(items);
  }else{
  $('#comparison-table').innerHTML=`<caption class="sr-only">ファクタリング会社の条件比較</caption><thead><tr><th scope="col">比較項目</th>${items.map(s=>`<th scope="col">${tableCompany(s)}</th>`).join('')}</tr></thead><tbody>${rows.map(([label,fn])=>`<tr><th scope="row">${label}</th>${items.map(s=>`<td>${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
  }

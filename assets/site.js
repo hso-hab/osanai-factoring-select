@@ -1,5 +1,6 @@
 const selected=new Set();
 let tableView='overview';
+let comparisonTopic='price';
 const state={purpose:'all',business:'all',search:'',sort:'default'};
 const $=selector=>document.querySelector(selector);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -56,6 +57,19 @@ function tableCompany(s){return `<a class="table-name" href="/osanai-factoring-s
 function tableOverview(items){
  return `<caption class="sr-only">ファクタリング会社の条件一覧</caption><thead><tr><th scope="col">会社</th><th scope="col">公表手数料</th><th scope="col">入金の目安</th><th scope="col">買取可能額</th><th scope="col">手続き・詳細</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row">${tableCompany(s)}${s.id==='hso'?'<small>広告・PR｜自社サービス</small>':''}</th>${metricDefs.map(([key,label,note])=>`<td data-label="${label}">${s[key]?`<span>${esc(s[key])}</span>${s[note]?`<small>${esc(s[note])}</small>`:''}`:'<span aria-label="数値非掲載">—</span>'}</td>`).join('')}<td data-label="手続き・詳細">${esc(s.channel||s.audience)}<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">条件・出典 ↗</a><span class="table-links">${officialLink(s,"comparison").replace("公式サイトで確認 ↗","公式サイト ↗")}</span></td></tr>`).join('')}</tbody>`;
 }
+function profileCells(s){const p=s.profile;return p?[
+ ['契約方式',p.contract],['取引先への通知',p.notice],['請求書・対象条件',p.invoice+'。'+p.requirement]
+ ].map(([label,value])=>`<td data-label="${label}">${esc(value)}</td>`).join(''):'<td data-label="契約方式">—</td><td data-label="取引先への通知">—</td><td data-label="請求書・対象条件">確認できた紹介情報のみ掲載</td>';}
+function termsOverview(items){return `<caption class="sr-only">対象条件と契約方式の比較</caption><thead><tr><th scope="col">会社</th><th scope="col">契約方式</th><th scope="col">取引先への通知</th><th scope="col">請求書・初回条件</th><th scope="col">出典・詳細</th></tr></thead><tbody>${items.map(s=>`<tr><th scope="row">${tableCompany(s)}</th>${profileCells(s)}<td data-label="出典・詳細"><a href="/osanai-factoring-select/company/${s.id}/${s.profile?'#eligibility':''}">詳細・公式出典 →</a>${s.profile?'<small>確認：2026-10-05</small>':''}${officialLink(s,'comparison')}</td></tr>`).join('')}</tbody>`;}
+function setupComparison(){if(!$('#comparison-table'))return;
+ const toolbar=$('.comparison-toolbar');
+ const controls=document.createElement('div');controls.className='comparison-options';controls.innerHTML=`<div class="comparison-topics" role="group" aria-label="比較する条件"><button type="button" data-compare-topic="price" aria-pressed="true">料金・入金</button><button type="button" data-compare-topic="terms" aria-pressed="false">対象条件・契約</button></div><details class="company-picker"><summary>比較する会社を選ぶ（2〜3社から）</summary><div>${services.map(s=>`<label><input type="checkbox" data-pick-compare="${s.id}">${esc(s.name)}</label>`).join('')}</div><button type="button" data-clear-comparison>選択を解除</button></details><div class="selected-companies" aria-live="polite"></div>`;
+ toolbar.before(controls);
+ const summary=document.createElement('button');summary.type='button';summary.dataset.tableView='summary';summary.setAttribute('aria-pressed','false');summary.textContent='要点を縦に見る';$('.table-views').append(summary);
+ const ids=new URLSearchParams(location.search).get('compare')?.split(',')||[];for(const id of ids)if(services.some(s=>s.id===id))selected.add(id);
+ document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare||c.dataset.pickCompare));
+ if(selected.size)tableView='side';
+}
 function render(){
  if(!$('#service-list'))return;
  const query=state.search.normalize('NFKC').toLowerCase().trim();
@@ -76,18 +90,21 @@ function renderComparison(){
  if(!$('#comparison-table'))return;
  const items=selected.size?services.filter(s=>selected.has(s.id)):services;
  const rows=metricDefs.map(([key,label,note])=>[label,s=>tableMetric(s,key,note)]).concat([['対象事業者',s=>esc(s.audience)],['手続き',s=>s.channel?esc(s.channel):'<span aria-label="情報非掲載">—</span>'],['掲載区分',s=>esc(s.placement)],['公式サイトで確認',s=>officialLink(s,'comparison')||'公式申込リンク非掲載'],['出典・詳細',s=>`<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">掲載情報を見る →</a><small>確認：${esc(s.checkedAt)}</small>`]]);
- const table=$('#comparison-table');table.classList.toggle('overview-table',tableView==='overview');
+ rows.splice(4,0,['契約方式',s=>esc(s.profile?.contract||'—')],['通知・承諾',s=>esc(s.profile?.notice||'—')],['初回・事業条件',s=>esc(s.profile?.requirement||'—')],['対象の請求書',s=>esc(s.profile?.invoice||'—')]);
+ const table=$('#comparison-table');const swipe=$('.comparison-section .swipe');if(swipe)swipe.hidden=tableView==='summary';table.classList.toggle('overview-table',tableView!=='side');table.classList.toggle('summary-table',tableView==='summary');table.classList.toggle('terms-table',comparisonTopic==='terms');
+ document.querySelectorAll('[data-compare-topic]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.compareTopic===comparisonTopic)));
+ if($('.selected-companies'))$('.selected-companies').innerHTML=items.filter(s=>selected.has(s.id)).map(s=>`<button type="button" data-remove-comparison="${s.id}" aria-label="${esc(s.name)}の選択を解除">${esc(s.name)} ×</button>`).join('');
  document.querySelectorAll('[data-table-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.tableView===tableView)));
- if(tableView==='overview'){
-  table.innerHTML=tableOverview(items);
+ if(tableView!=='side'){
+  table.innerHTML=comparisonTopic==='terms'?termsOverview(items):tableOverview(items);
  }else{
- $('#comparison-table').innerHTML=`<caption class="sr-only">ファクタリング会社の条件比較</caption><thead><tr><th scope="col">比較項目</th>${items.map(s=>`<th scope="col">${tableCompany(s)}</th>`).join('')}</tr></thead><tbody>${rows.map(([label,fn])=>`<tr><th scope="row">${label}</th>${items.map(s=>`<td>${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+ $('#comparison-table').innerHTML=`<caption class="sr-only">ファクタリング会社の条件比較</caption><thead><tr><th scope="col">比較項目</th>${items.map(s=>`<th scope="col">${tableCompany(s)}</th>`).join('')}</tr></thead><tbody>${rows.filter(([label])=>comparisonTopic==='price'?!['契約方式','通知・承諾','初回・事業条件','対象の請求書'].includes(label):!['公表手数料','入金の目安','買取可能額'].includes(label)).map(([label,fn])=>`<tr><th scope="row">${label}</th>${items.map(s=>`<td>${fn(s)}</td>`).join('')}</tr>`).join('')}</tbody>`;
  }
- $('#comparison-status').textContent=selected.size?`選択した${items.length}社を表示：${items.map(s=>s.name).join(' / ')}`:`全${services.length}社を表示しています。「比較に追加」で選んだ会社だけに絞れます。`;
+ $('#comparison-status').textContent=selected.size?`選択した${items.length}社を表示：${items.map(s=>s.name).join(' / ')}`:`全${services.length}社を表示しています。表の上の「比較する会社を選ぶ」で絞り込めます。`;
  if($('#tray')){$('#tray').hidden=selected.size===0;$('#selected-count').textContent=selected.size;}
 }
 function resetFilters(){Object.assign(state,{purpose:'all',business:'all',search:'',sort:'default'});render();}
-function clearSelection(){selected.clear();document.querySelectorAll('[data-compare]').forEach(c=>c.checked=false);renderComparison();}
+function clearSelection(){selected.clear();document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=false);renderComparison();}
 function applyPurpose(purpose,business='all'){
  Object.assign(state,{purpose:purpose==='specialist'?'all':purpose,business:purpose==='specialist'?'specialist':business,search:'',sort:purpose==='fee'?'fee':'default'});render();$('#services')?.scrollIntoView({block:'start'});
 }
@@ -115,11 +132,14 @@ function calculate(){
 if(typeof document!=='undefined'){
  document.addEventListener('click',event=>{
   const view=event.target.closest('[data-table-view]');if(view){tableView=view.dataset.tableView;renderComparison();}
+  const topic=event.target.closest('[data-compare-topic]');if(topic){comparisonTopic=topic.dataset.compareTopic;renderComparison();}
+  const remove=event.target.closest('[data-remove-comparison]');if(remove){selected.delete(remove.dataset.removeComparison);document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare||c.dataset.pickCompare));renderComparison();}
+  if(event.target.closest('[data-clear-comparison]'))clearSelection();
   const purpose=event.target.closest('[data-purpose]');if(purpose){state.purpose=purpose.dataset.purpose;state.sort=state.purpose==='fee'?'fee':'default';render();}
   const jump=event.target.closest('[data-jump-purpose]');if(jump)applyPurpose(jump.dataset.jumpPurpose);
   const detail=event.target.closest('[data-detail]');if(detail)showDetail(detail.dataset.detail,detail);
  });
- document.addEventListener('change',event=>{const id=event.target.dataset.compare;if(id){event.target.checked?selected.add(id):selected.delete(id);document.querySelectorAll('[data-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare));if(selected.size)tableView='side';renderComparison();}});
+ document.addEventListener('change',event=>{const id=event.target.dataset.compare||event.target.dataset.pickCompare;if(id){event.target.checked?selected.add(id):selected.delete(id);document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare||c.dataset.pickCompare));if(selected.size)tableView='side';renderComparison();}});
  $('#business')?.addEventListener('change',e=>{state.business=e.target.value;render();});
  $('#sort')?.addEventListener('change',e=>{state.sort=e.target.value;if(state.purpose==='fee'&&state.sort!=='fee')state.purpose='all';render();});
  $('#search')?.addEventListener('input',e=>{state.search=e.target.value;render();});
@@ -130,5 +150,5 @@ if(typeof document!=='undefined'){
  $('#detail-dialog')?.addEventListener('click',e=>{if(e.target===e.currentTarget){const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.currentTarget.close();}});
  $('#quick-finder')?.addEventListener('submit',e=>{e.preventDefault();applyPurpose($('#quick-purpose').value,$('#quick-range').value);});
  $('#calculator')?.addEventListener('submit',e=>e.preventDefault());$('#calculator')?.addEventListener('input',calculate);
- render();renderComparison();calculate();
+ render();setupComparison();renderComparison();calculate();
 }

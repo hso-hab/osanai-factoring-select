@@ -20,15 +20,15 @@ function adValue(value){return esc(value).replace(/(\d+(?:[.,]\d+)?(?:万円|時
 function spotlight(s,topic='individual'){
  const summaries={
   hso:'個人事業主・フリーランス向けの請求書ファクタリング。株式会社HSOが運営する自社サービスです。',
-  trustlyne:'個人事業主・フリーランス向け。請求書の提出から手続きまでLINEで完結。入金目安は申込時ではなく、審査完了後から。',
-  paytner:'少額の請求書や、個人の取引先への請求書に対応。入金目安は営業時間内に審査開始した申請が対象。時間外は翌営業日。',
-  ququmo:'請求書と通帳の2点を中心に申請。法人・個人事業主に対応。入金目安は必要書類が揃った申込から。電話確認の場合あり。',
-  paytoday:'法人からフリーランスまでオンラインで申請。手数料の下限・上限を公表。審査結果は24時間以内にメールで回答。',
-  olta:'個人事業主も対象。請求書の一部買取にも対応。書類完備後1営業日以内に見積、契約後は即日〜翌営業日に振込。',
-  labol:'1万円からWebで申請。振込手数料などの追加費用なし。審査完了分は24時間365日振込（審査は24時間対応ではありません）。',
-  betrading:'1万〜300万円向けオンライン窓口の条件を掲載。300万円を超える個人事業主の相談は別窓口で、条件も異なります。',
-  support:'個人事業主も相談可能。申込から契約まで非対面で対応。審査結果は最短30分、入金は最短3時間と案内しています。',
-  accel:'個人事業主も対象。利用額・契約方式別の料率表を公開し、オンライン手続きに対応。調達目安は必要書類の送付から。'
+  trustlyne:'個人事業主・フリーランス向け。請求書の提出から手続きまでLINEで完結。',
+  paytner:'少額の請求書や、個人の取引先への請求書に対応。',
+  ququmo:'請求書と通帳の2点を中心に申請。法人・個人事業主に対応。',
+  paytoday:'法人からフリーランスまでオンラインで申請。手数料の下限・上限を公表。',
+  olta:'個人事業主も対象。請求書の一部買取にも対応。',
+  labol:'少額の請求書をWebで申請。必要書類や取引内容を確認して申し込めます。',
+  betrading:'個人事業主向けのオンライン窓口を紹介。利用金額によって相談窓口が異なります。',
+  support:'個人事業主も相談可能。申込から契約まで非対面で対応。',
+  accel:'個人事業主も対象。利用額・契約方式別の料率表を公開し、オンライン手続きに対応。'
  };
  const feeNotes={paytner:'振込手数料330円別途',paytoday:'オンライン利用時',olta:'諸経費込み'};
  const metrics=s.id==='hso'?[['対象','個人事業主', 'フリーランス'],['サービス','請求書買取',''],['運営','株式会社HSO','']]:[
@@ -39,7 +39,7 @@ function spotlight(s,topic='individual'){
  const detail='/osanai-factoring-select/company/'+s.id+'/';
  const title=['trustlyne','labol'].includes(s.id)?s.kana:s.name;
  const subtitle=['trustlyne','labol'].includes(s.id)?s.name:s.kana;
- return `<article class="spotlight ad-card reference-company" data-ad-service="${s.id}"><a class="reference-company-image" href="${detail}" aria-label="${esc(s.name)}の詳細を見る"><img src="/osanai-factoring-select/${esc(s.image.src)}" width="${s.image.width}" height="${s.image.height}" alt="${esc(s.name)}の公式サイト上部" loading="lazy" decoding="async"></a><div class="reference-company-body"><div class="reference-company-name"><div><h4><a href="${detail}">${esc(title)}</a></h4><p>${esc(subtitle)}</p></div>${s.id==='hso'?'<span class="reference-company-pr">広告・PR<br>自社サービス</span>':''}</div><p class="reference-company-description">${esc(summaries[s.id])}</p><dl class="reference-company-metrics">${metrics.map(([label,value,note])=>`<div><dt>${label}</dt><dd>${esc(value)}${note?`<small>${esc(note)}</small>`:''}</dd></div>`).join('')}</dl><p class="reference-company-conditions">${esc(s.note)}${s.id!=='hso'?' 適用料率・買取可否・入金時間は審査や契約条件によります。':''}</p><p class="reference-company-evidence"><a href="${detail}#sources">公式出典・条件詳細</a> · 確認 ${esc(s.checkedAt)}</p><div class="reference-company-actions"><a class="reference-company-detail" href="${detail}">詳細を見る →</a>${s.externalCta?`<a class="reference-company-official" href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" data-location="ad_card" target="_blank" rel="${s.sponsored?'sponsored ':''}noopener noreferrer" aria-label="${esc(s.name)}の公式サイトを新しいタブで開く">${s.sponsored?'広告・PR｜':''}公式サイトで条件を確認 →</a>`:''}</div></div></article>`;
+ return `<article class="spotlight ad-card reference-company" data-ad-service="${s.id}"><a class="reference-company-image" href="${detail}" aria-label="${esc(s.name)}の詳細を見る"><img src="/osanai-factoring-select/${esc(s.image.src)}" width="${s.image.width}" height="${s.image.height}" alt="${esc(s.name)}の公式サイト上部" loading="lazy" decoding="async"></a><div class="reference-company-body"><div class="reference-company-name"><div><h4><a href="${detail}">${esc(title)}</a></h4><p>${esc(subtitle)}</p></div>${s.id==='hso'?'<span class="reference-company-pr">広告・PR<br>自社サービス</span>':''}</div><p class="reference-company-description">${esc(summaries[s.id])}</p><dl class="reference-company-metrics">${metrics.map(([label,value,note])=>`<div><dt>${label}</dt><dd>${esc(value)}${note?`<small>${esc(note)}</small>`:''}</dd></div>`).join('')}</dl><p class="reference-company-conditions">${esc(s.note)}</p><p class="reference-company-evidence"><a href="${detail}#sources">公式出典・条件詳細</a> · 確認 ${esc(s.checkedAt)}</p><div class="reference-company-actions"><a class="reference-company-detail" href="${detail}">詳細を見る →</a>${s.externalCta?`<a class="reference-company-official" href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" data-location="ad_card" target="_blank" rel="${s.sponsored?'sponsored ':''}noopener noreferrer" aria-label="${esc(s.name)}の公式サイトを新しいタブで開く">${s.sponsored?'広告・PR｜':''}公式サイトで条件を確認 →</a>`:''}</div></div></article>`;
 }
 function adGroups(items){
  const groups=[
@@ -48,7 +48,7 @@ function adGroups(items){
   {id:'small',icon:'¥',en:'SMALL INVOICES',title:'少額からの利用を考える',accent:'blue',ids:['labol','betrading','support'],description:'利用したい金額から、申請下限や対象窓口の条件を確認。',note:'公表下限が3万円以下、または下限設定なしのサービスの例です。'},
   {id:'online',icon:'↗',en:'ONLINE PROCESS',title:'オンラインで手続きを進める',accent:'green',ids:['accel','ququmo','olta'],description:'来店せずに進めたい方へ。各社の手続きと必要条件を見比べる。',note:'公式にオンライン完結と案内しているサービスの例です。'}
  ];
- return groups.map(g=>`<section class="ad-category accent-${g.accent}" id="category-${g.id}" aria-labelledby="heading-${g.id}"><div class="ad-category-heading"><div class="ad-category-symbol" aria-hidden="true">${g.icon}</div><div><p>${g.en}</p><h3 id="heading-${g.id}">${g.title}</h3></div></div><p class="ad-category-description">${g.description}</p><p class="ad-disclaimer">${g.note}</p><div class="ad-grid">${g.ids.map(id=>spotlight(items.find(s=>s.id===id),g.id)).join('')}</div><div class="compact-category-footer"><a href="/osanai-factoring-select/company/?compare=${g.ids.filter(id=>id!=='hso').join(',')}#compare">この候補の条件を比較 →</a></div></section>`).join('');
+ return groups.map(g=>`<section class="ad-category accent-${g.accent}" id="category-${g.id}" aria-labelledby="heading-${g.id}"><div class="ad-category-heading"><div class="ad-category-symbol" aria-hidden="true">${g.icon}</div><div><p>${g.en}</p><h3 id="heading-${g.id}">${g.title}</h3></div></div><p class="ad-category-description">${g.description}</p><p class="ad-disclaimer">${g.note} 適用料率・買取可否・入金時間は審査や契約条件によります。</p><div class="ad-grid">${g.ids.map(id=>spotlight(items.find(s=>s.id===id),g.id)).join('')}</div><div class="compact-category-footer"><a href="/osanai-factoring-select/company/?compare=${g.ids.filter(id=>id!=='hso').join(',')}#compare">この候補の条件を比較 →</a></div></section>`).join('');
 }
 function featurePair(items){
  return items.slice(0,2).map(s=>`<article class="feature-ad" data-feature-service="${s.id}"><div class="feature-ad-kicker">${s.id==='hso'?'広告・PR｜運営元のサービス':'個人事業主・フリーランス向け'}</div>${siteImage(s,true)}<div class="feature-ad-copy"><p class="eyebrow">${s.id==='hso'?'HSO FACTORING':'TRUSTLYNE'}</p><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p>${s.id==='hso'?`<ul>${s.facts.map(f=>`<li>✓ ${esc(f)}</li>`).join('')}</ul>`:`<h4>LINEで進める手続き</h4><ul>${(s.detail?.flow||[]).map(f=>`<li>✓ ${esc(f)}</li>`).join('')}</ul><p class="doc-note">${esc(s.speed)}。${esc(s.speedNote)}。</p>`}<div class="feature-ad-actions"><a class="feature-detail" href="/osanai-factoring-select/company/${s.id}/">サービスを詳しく見る →</a>${s.externalCta?`<a href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" target="_blank" rel="${s.sponsored?'sponsored noopener noreferrer':'noopener noreferrer'}">公式サイトへ ↗</a>`:''}</div><small>確認：${esc(s.checkedAt)} · 詳細に公式出典を掲載</small></div></article>`).join('');
@@ -78,9 +78,26 @@ function setupComparison(){if(!$('#comparison-table'))return;
  const display=document.createElement('details');display.className='comparison-display';display.innerHTML='<summary>表示形式を変更</summary>';toolbar.before(display);display.append(toolbar);
  const swipe=toolbar.querySelector('.swipe');if(swipe)display.after(swipe);
  const overview=document.querySelector('[data-table-view=overview]');if(overview)overview.textContent='コンパクト一覧';
- const ids=new URLSearchParams(location.search).get('compare')?.split(',')||[];for(const id of ids)if(services.some(s=>s.id===id))selected.add(id);
+ const params=new URLSearchParams(location.search);
+ if(params.has('compare')){selected.clear();for(const id of params.get('compare').split(','))if(services.some(s=>s.id===id))selected.add(id);tableView=selected.size?'side':'overview';}
+
  document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare||c.dataset.pickCompare));
- if(selected.size)tableView='side';
+
+ controls.insertAdjacentHTML('beforeend','<p class="doc-note session-note">選択・表示条件はこのタブで一時保存されます。<a href="/osanai-factoring-select/privacy/#session">保存について</a></p>');
+}
+function saveComparisonState(){
+ window.siteSession?.set('comparison',{selected:[...selected],state,tableView,comparisonTopic});
+ // An explicit shared selection is consumed once; later edits survive reloads.
+ const url=new URL(location.href);if(url.searchParams.has('compare')){url.searchParams.delete('compare');history.replaceState(null,'',url);}
+}
+function restoreComparisonState(){
+ const saved=window.siteSession?.get('comparison');if(!saved||typeof saved!=='object')return;
+ if(Array.isArray(saved.selected))for(const id of saved.selected)if(services.some(s=>s.id===id))selected.add(id);
+ const x=saved.state||{};
+ for(const [k,allowed] of Object.entries({purpose:['all','small','line','fee'],business:['all','specialist'],sort:['default','fee','name']}))if(allowed.includes(x[k]))state[k]=x[k];
+ if(typeof x.search==='string')state.search=x.search.slice(0,100);
+ if(['overview','summary','side'].includes(saved.tableView))tableView=saved.tableView;
+ if(['price','terms'].includes(saved.comparisonTopic))comparisonTopic=saved.comparisonTopic;
 }
 function render(){
  if(!$('#service-list'))return;
@@ -95,11 +112,13 @@ function render(){
  $('#listing-note').textContent=state.sort==='fee'?'公表下限を掲載しているサービスを料率順に表示しています。適用条件が異なるため、実際の見積総額やサービス全体の優劣を示すものではありません。':'確認できた条件のみを掲載しています。各社の対象条件・追加費用・入金時間の起点もあわせて比較してください。';
  document.querySelectorAll('[data-purpose]').forEach(b=>{const active=b.dataset.purpose===state.purpose;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
  $('#sort').value=state.sort;$('#business').value=state.business;$('#search').value=state.search;
+ window.siteSession?.set('comparison',{selected:[...selected],state,tableView,comparisonTopic});
 }
 
 function tableMetric(s,key,note){return s[key]?`<span class="${key==='fee'?'fee-cell':''}">${esc(s[key])}</span>${s[note]?`<small>${esc(s[note])}</small>`:''}`:'<span aria-label="数値非掲載">—</span>';}
 function renderComparison(){
  if(!$('#comparison-table'))return;
+ saveComparisonState();
  const items=selected.size?services.filter(s=>selected.has(s.id)):services;
  const rows=metricDefs.map(([key,label,note])=>[label,s=>tableMetric(s,key,note)]).concat([['対象事業者',s=>esc(s.audience)],['手続き',s=>s.channel?esc(s.channel):'<span aria-label="情報非掲載">—</span>'],['掲載区分',s=>esc(s.placement)],['公式サイトで確認',s=>officialLink(s,'comparison')||'公式申込リンク非掲載'],['出典・詳細',s=>`<a class="text-link" href="/osanai-factoring-select/company/${s.id}/#sources">掲載情報を見る →</a><small>確認：${esc(s.checkedAt)}</small>`]]);
  rows.splice(4,0,['契約方式',s=>esc(s.profile?.contract||'—')],['通知・承諾',s=>esc(s.profile?.notice||'—')],['初回・事業条件',s=>esc(s.profile?.requirement||'—')],['対象の請求書',s=>esc(s.profile?.invoice||'—')]);
@@ -162,5 +181,5 @@ if(typeof document!=='undefined'){
  $('#detail-dialog')?.addEventListener('click',e=>{if(e.target===e.currentTarget){const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.currentTarget.close();}});
  $('#quick-finder')?.addEventListener('submit',e=>{e.preventDefault();applyPurpose($('#quick-purpose').value,$('#quick-range').value);});
  $('#calculator')?.addEventListener('submit',e=>e.preventDefault());$('#calculator')?.addEventListener('input',calculate);
- render();setupComparison();renderComparison();calculate();
+ restoreComparisonState();setupComparison();render();renderComparison();calculate();
 }

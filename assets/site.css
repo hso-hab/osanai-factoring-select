@@ -495,4 +495,17 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .reference-company-pr{font-size:12px;color:#334a3b}.reference-company-evidence{font-size:12px}
 .ad-disclosure{color:#334a3b}.ad-disclosure span{line-height:1.8}
 
+/* Reader continuity and quote comparison — 2026-10-06 */
+.reference-mobile-intro{display:none}
+.quote-comparison{max-width:1160px;margin:0 auto;padding:0 24px 48px}
+.quote-comparison>h3{font-size:24px;margin:0 0 12px}.quote-comparison>p{max-width:760px}
+#quote-panel{margin-top:20px}.quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.quote-card{min-width:0;margin:0;padding:20px;border:1px solid #cedad3;border-radius:12px;background:#fff}
+.quote-card legend{font-weight:700;padding:0 8px}.quote-card label{display:grid;gap:6px;margin:0 0 16px;font-size:14px}
+.quote-card input{box-sizing:border-box;min-width:0;width:100%;min-height:44px;padding:10px;border:1px solid #a8b6af;border-radius:6px;font:inherit;background:#fff;color:#172b27}
+.quote-card input[aria-invalid=true]{border-color:#a52b2b}.quote-receipt{display:grid;gap:8px}.quote-receipt output{font-size:26px;font-weight:700;color:#236345;overflow-wrap:anywhere}
+#quote-summary{font-weight:700;margin:20px 0}.session-note{margin-block:12px}.quote-card .doc-note{overflow-wrap:anywhere}
+@media(max-width:760px){.quote-grid{grid-template-columns:1fr}.quote-comparison{padding:0 16px 32px}}
+@media(max-width:600px){.reference-mobile-intro{display:block;margin:16px 16px 8px;font-size:15px;line-height:1.8;color:#263e35;text-align:center}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

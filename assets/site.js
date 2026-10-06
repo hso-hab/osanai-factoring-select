@@ -48,7 +48,7 @@ function adGroups(items){
   {id:'small',icon:'¥',en:'SMALL INVOICES',title:'少額からの利用を考える',accent:'blue',ids:['labol','betrading','support'],description:'利用したい金額から、申請下限や対象窓口の条件を確認。',note:'公表下限が3万円以下、または下限設定なしのサービスの例です。'},
   {id:'online',icon:'↗',en:'ONLINE PROCESS',title:'オンラインで手続きを進める',accent:'green',ids:['accel','ququmo','olta'],description:'来店せずに進めたい方へ。各社の手続きと必要条件を見比べる。',note:'公式にオンライン完結と案内しているサービスの例です。'}
  ];
- return groups.map(g=>`<section class="ad-category accent-${g.accent}" id="category-${g.id}" aria-labelledby="heading-${g.id}"><div class="ad-category-heading"><div class="ad-category-symbol" aria-hidden="true">${g.icon}</div><div><p>${g.en}</p><h3 id="heading-${g.id}">${g.title}</h3></div></div><p class="ad-category-description">${g.description}</p><p class="ad-disclaimer">${g.note} 適用料率・買取可否・入金時間は審査や契約条件によります。</p><div class="ad-grid">${g.ids.map(id=>spotlight(items.find(s=>s.id===id),g.id)).join('')}</div><div class="compact-category-footer"><a href="/osanai-factoring-select/company/?compare=${g.ids.filter(id=>id!=='hso').join(',')}#compare">この候補の条件を比較 →</a></div></section>`).join('');
+ return groups.map(g=>`<section class="ad-category accent-${g.accent}" id="category-${g.id}" aria-labelledby="heading-${g.id}"><details class="purpose-disclosure"><summary><div class="ad-category-heading"><div><p>${g.en}</p><h3 id="heading-${g.id}">${g.title}</h3></div></div><p class="ad-category-description">${g.description}</p><span class="purpose-companies">${g.ids.map(id=>esc(items.find(s=>s.id===id).name)).join('・')}</span><span class="purpose-toggle"><span class="when-closed">会社の条件を見る ＋</span><span class="when-open">紹介を閉じる −</span></span></summary><div class="purpose-content"><p class="ad-disclaimer">${g.note} 適用料率・買取可否・入金時間は審査や契約条件によります。</p><div class="ad-grid">${g.ids.map(id=>spotlight(items.find(s=>s.id===id),g.id)).join('')}</div><div class="compact-category-footer"><a href="/osanai-factoring-select/company/?compare=${g.ids.filter(id=>id!=='hso').join(',')}#compare">この候補の条件を比較 →</a></div></div></details></section>`).join('');
 }
 function featurePair(items){
  return items.slice(0,2).map(s=>`<article class="feature-ad" data-feature-service="${s.id}"><div class="feature-ad-kicker">${s.id==='hso'?'広告・PR｜運営元のサービス':'個人事業主・フリーランス向け'}</div>${siteImage(s,true)}<div class="feature-ad-copy"><p class="eyebrow">${s.id==='hso'?'HSO FACTORING':'TRUSTLYNE'}</p><h3>${esc(s.name)}</h3><p>${esc(s.description)}</p>${s.id==='hso'?`<ul>${s.facts.map(f=>`<li>✓ ${esc(f)}</li>`).join('')}</ul>`:`<h4>LINEで進める手続き</h4><ul>${(s.detail?.flow||[]).map(f=>`<li>✓ ${esc(f)}</li>`).join('')}</ul><p class="doc-note">${esc(s.speed)}。${esc(s.speedNote)}。</p>`}<div class="feature-ad-actions"><a class="feature-detail" href="/osanai-factoring-select/company/${s.id}/">サービスを詳しく見る →</a>${s.externalCta?`<a href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" target="_blank" rel="${s.sponsored?'sponsored noopener noreferrer':'noopener noreferrer'}">公式サイトへ ↗</a>`:''}</div><small>確認：${esc(s.checkedAt)} · 詳細に公式出典を掲載</small></div></article>`).join('');
@@ -103,13 +103,14 @@ function render(){
  if(!$('#service-list'))return;
  const query=state.search.normalize('NFKC').toLowerCase().trim();
  let visible=services.filter(s=>(state.business!=='specialist'||s.specialist)&&(!query||(s.name+' '+s.kana).normalize('NFKC').toLowerCase().includes(query))&&(state.purpose!=='small'||s.min!==null&&s.min<=3)&&(state.purpose!=='line'||s.channel==='LINE完結'));
- if(state.sort==='fee')visible=visible.filter(s=>s.feeMin!==null).sort((a,b)=>a.feeMin-b.feeMin);
+ if(state.sort==='fee')visible.sort((a,b)=>(a.feeMin??Infinity)-(b.feeMin??Infinity));
  if(state.sort==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'ja'));
- $('#service-list').innerHTML=visible.map(s=>card(s)).join('');
+ const unknown=state.sort==='fee'?visible.findIndex(s=>s.feeMin===null):-1;
+ $('#service-list').innerHTML=visible.map((s,i)=>(i===unknown?'<div class="fee-unknown-heading"><h3>単一の下限料率では比較できない会社</h3><p>料率が未掲載、または金額・契約方式別の案内がある会社です。候補から除外せず、条件を別途確認できます。</p></div>':'')+card(s)).join('');
  $('#empty').hidden=visible.length!==0;
  $('#result-count').textContent=`${visible.length}件のサービス / 全${services.length}社`;
  $('#list-heading').textContent=state.sort==='fee'?'公表手数料の下限で比較。':'各社の条件を、詳しく比較。';
- $('#listing-note').textContent=state.sort==='fee'?'公表下限を掲載しているサービスを料率順に表示しています。適用条件が異なるため、実際の見積総額やサービス全体の優劣を示すものではありません。':'確認できた条件のみを掲載しています。各社の対象条件・追加費用・入金時間の起点もあわせて比較してください。';
+ $('#listing-note').textContent=state.sort==='fee'?'公表下限を料率順に表示し、単一の下限料率で比較できない会社は末尾にまとめています。並び替えによる除外はありません。適用条件が異なるため、実際の見積総額やサービス全体の優劣を示すものではありません。':'確認できた条件のみを掲載しています。各社の対象条件・追加費用・入金時間の起点もあわせて比較してください。';
  document.querySelectorAll('[data-purpose]').forEach(b=>{const active=b.dataset.purpose===state.purpose;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
  $('#sort').value=state.sort;$('#business').value=state.business;$('#search').value=state.search;
  window.siteSession?.set('comparison',{selected:[...selected],state,tableView,comparisonTopic});
@@ -161,7 +162,15 @@ function calculate(){
  $('#calc-breakdown').textContent=`手数料 ${fee.toLocaleString('ja-JP')}円 ＋ その他の費用 ${extra.toLocaleString('ja-JP')}円`;
 }
 if(typeof document!=='undefined'){
+ const openPurpose = hash => {
+  if (!/^#category-(individual|fees|small|online)$/.test(hash)) return;
+  const disclosure=document.querySelector(hash+' .purpose-disclosure');
+  if(disclosure)disclosure.open=true;
+ };
+ openPurpose(location.hash);
+ addEventListener('hashchange',()=>openPurpose(location.hash));
  document.addEventListener('click',event=>{
+  const categoryLink=event.target.closest('a[href^="#category-"]');if(categoryLink)openPurpose(categoryLink.getAttribute('href'));
   const view=event.target.closest('[data-table-view]');if(view){tableView=view.dataset.tableView;renderComparison();}
   const topic=event.target.closest('[data-compare-topic]');if(topic){comparisonTopic=topic.dataset.compareTopic;renderComparison();}
   const remove=event.target.closest('[data-remove-comparison]');if(remove){selected.delete(remove.dataset.removeComparison);document.querySelectorAll('[data-compare],[data-pick-compare]').forEach(c=>c.checked=selected.has(c.dataset.compare||c.dataset.pickCompare));renderComparison();}

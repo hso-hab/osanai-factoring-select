@@ -508,6 +508,25 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:760px){.quote-grid{grid-template-columns:1fr}.quote-comparison{padding:0 16px 32px}}
 @media(max-width:600px){.reference-mobile-intro{display:block;margin:16px 16px 8px;font-size:15px;line-height:1.8;color:#263e35;text-align:center}}
 
+/* Review follow-up: keep all company conditions available without a long repeated feed. */
+.homepage .lower-page .ad-category{padding:0;margin:12px 0;border:1px solid #cfddd5;border-radius:14px;background:#fff;overflow:hidden}
+.homepage .lower-page .ad-category+.ad-category{padding-top:0;margin-top:12px}
+.purpose-disclosure>summary{display:block;padding:20px;cursor:pointer;list-style:none}
+.purpose-disclosure>summary::-webkit-details-marker{display:none}
+.purpose-disclosure>summary:focus-visible,.feature-disclosure>summary:focus-visible{outline:3px solid #236345;outline-offset:-4px}
+.purpose-companies{display:block;margin:8px 0;color:#52665c;font-size:12px;overflow-wrap:anywhere}
+.purpose-toggle{display:block;color:#236345;font-size:13px;font-weight:700;margin-top:12px}
+.purpose-disclosure[open]>summary>.purpose-toggle{transform:none}
+.purpose-disclosure .ad-category-description{font-weight:400}
+.purpose-disclosure .when-open,.purpose-disclosure[open] .when-closed{display:none}
+.purpose-disclosure[open] .when-open{display:inline}
+.purpose-content{padding:0 20px 20px}.purpose-content .ad-grid{margin-top:14px}
+.feature-disclosure{border:1px solid #cfddd5;border-radius:14px;margin-block:28px;background:#fff}
+.feature-disclosure>summary{padding:18px 20px;color:#236345;font-weight:700;cursor:pointer}
+.fee-unknown-heading{grid-column:1/-1;border-top:2px solid #cfddd5;padding-top:22px;margin-top:12px}
+.fee-unknown-heading h3{margin:0 0 8px;font-size:19px}.fee-unknown-heading p{margin:0;color:#52665c;font-size:13px;line-height:1.8}
+@media(max-width:760px){.purpose-disclosure>summary{padding:16px}.purpose-content{padding:0 16px 16px}.homepage .lower-page .purpose-disclosure h3{font-size:19px}.purpose-disclosure .ad-category-description{font-size:12px}}
+
 /* Lightweight motion; approved artwork, content and layout remain unchanged. */
 @media (prefers-reduced-motion: no-preference) {
   :where(.site-button, .button, .nav-cta, .ad-actions a, .ad-actions button, .reference-company-actions a, .entry-topics a, .ad-category-nav a) {
@@ -585,6 +604,7 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .robot-speech{position:absolute;bottom:calc(100% + 6px);left:0;width:100%;padding:11px 12px;border:1px solid #a9cbb9;border-radius:18px;background:#fff;color:#244d3c;font:600 12px/1.7 'Select Noto',sans-serif;text-align:left;white-space:normal}
 .robot-speech::after{content:'';position:absolute;top:100%;left:calc(50% - 6px);width:12px;height:12px;border-right:1px solid #a9cbb9;border-bottom:1px solid #a9cbb9;background:#fff;transform:translateY(-6px) rotate(45deg)}
 .robot-speech small{display:block;margin-top:4px;color:#52665c;font-size:10px;font-weight:400;text-align:center}
+@media(max-width:760px){.roaming-mascot.is-reading .robot-speech{visibility:hidden;pointer-events:none}.roaming-mascot:focus-visible .robot-speech{visibility:visible}}
 .roaming-mascot *{pointer-events:none!important}.roaming-mascot .robot-orbit{display:none}.roaming-mascot[hidden]{display:none!important}
 .mascot-dock{position:fixed;right:12px;bottom:12px;z-index:80;display:flex;gap:4px;max-width:calc(100vw - 24px);padding:4px;background:#fff;border:1px solid #cfddd5;border-radius:14px;box-shadow:0 3px 16px #173b2612}
 .mascot-dock[hidden]{display:none}.mascot-dock button{font:inherit;font-size:11px;font-weight:700;color:#244d3c;background:#fff;min-height:36px;border:0;border-radius:10px;padding:7px 12px;cursor:pointer}

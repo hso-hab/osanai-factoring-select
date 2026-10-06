@@ -17,7 +17,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
   const pause = document.createElement('button'), hide = document.createElement('button');
   pause.type = hide.type = 'button'; hide.textContent = '隠す'; hide.setAttribute('aria-label', 'ナビロボを隠す');
   dock.append(pause, hide); document.body.append(flyer, dock); document.body.classList.add('has-roaming-mascot');
-  let paused = false, hidden = false, editing = false, flight = null, route = 0, scrollTimer, greetingTimer;
+  let paused = false, hidden = false, editing = false, flight = null, route = 0, scrollTimer, greetingTimer, readingTimer;
   let hovering = false, focused = false, chatOpen = false;
   let limits, initialized = false, x = 0, y = 0;
   const blockers = [...document.querySelectorAll('#tray, .result-selection-bar, .mobile-official, .consent-notice')];
@@ -103,6 +103,11 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
   }
   // Change course after scrolling settles; scrolling itself is never intercepted.
   addEventListener('scroll', () => {
+    if (innerWidth <= 760) {
+      flyer.classList.add('is-reading');
+      clearTimeout(readingTimer);
+      readingTimer = setTimeout(() => flyer.classList.remove('is-reading'), 1600);
+    }
     clearTimeout(scrollTimer); scrollTimer = setTimeout(() => {if (canFly()) reflow();}, 240);
   }, {passive:true});
   const updateEditing = () => {
@@ -128,6 +133,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
   let opener = button;
   const openChat = event => {
     if (dialog.open) return;
+    clearTimeout(readingTimer); flyer.classList.remove('is-reading');
     opener = event.currentTarget; chatOpen = true; stopGreeting(); stopFlight(); sync();
     document.documentElement.classList.add('robot-chat-open'); dialog.showModal(); input.focus({preventScroll:true});
   };
@@ -153,20 +159,50 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
   const answerFor = question => {
     const q = normal(question), topics = window.robotTopics || [];
     const safety = topics.find(t => t.id === 'safety' && t.words.some(w => q.includes(normal(w))));
-    const topic = safety || topics.find(t => t.words.some(w => q.includes(normal(w))));
     if (safety) return safety;
     if (/^(こんにちは|こんばんは|おはよう|ありがとう|やあ|hello|hi)[！!。]*$/.test(q)) return {answer:'こんにちは！手数料・書類・入金時間など、気になることを聞いてください。会社名を入れると、その会社の掲載情報をご案内できます。',links:[]};
     if (/あなた|aiです|aiなの|人工知能|何ができ|誰|だれ/.test(q)) return {answer:'このサイトに掲載されている情報を照合する案内機能です。自由に会話するAIではありません。手数料・必要書類・入金時間・会社情報や、比較の使い方をご案内します。',links:[['会社一覧を見る','company/']]};
     const aliases = {trustlyne:['トラストライン','trustline'],ququmo:['ククモ'],paytner:['ペイトナー'],labol:['ラボル'],paytoday:['ペイトゥデイ'],olta:['オルタ'],betrading:['ビートレーディング'],support:['サポート機構'],accel:['アクセルファクター']};
-    const company = (typeof services !== 'undefined' ? services : []).find(s => [s.name,s.id,...(aliases[s.id]||[])].some(name => q.includes(normal(name))));
-    if (company) {
-      let answer = `${company.name}の掲載情報をご案内します。\n\n`;
-      if (topic?.id === 'fees') answer += `公表手数料：${company.fee || '単一の料率は掲載していません。'}\n${company.feeNote || ''}\n${company.note || ''}`;
-      else if (topic?.id === 'documents') answer += company.detail?.docs?.length ? '必要書類として掲載している内容：\n・'+company.detail.docs.join('\n・')+'\n\n追加書類や提出形式は公式窓口で確認してください。' : '必要書類の具体的な条件は、このサイトには掲載していません。';
-      else if (topic?.id === 'speed') answer += `${company.speed || '入金時間の具体的な条件は掲載していません。'}\n${company.speedNote || ''}\n\n最短時間は条件付きの目安であり、希望日の入金を保証するものではありません。`;
-      else answer += `${company.description}\n\n${company.note || ''}`;
-      return {answer,links:[[`${company.name}の詳細・出典`,'company/'+company.id+'/#sources']],checkedAt:company.checkedAt};
+    const all = typeof services !== 'undefined' ? services : [];
+    const companies = all.filter(s => [s.name,s.id,...(aliases[s.id]||[])].some(name => q.includes(normal(name))));
+    const feeAsked = /手数料|料率|費用|受取|金利|コスト|料金|安い|高い/.test(q);
+    const amountAsked = /いくらから|何円から|何万円から|最低額|最低利用|最低買取|買取額|利用額|請求書の金額|初回.*(?:上限|限度|いくら|金額|何万)|(?:上限|下限|限度額)/.test(q) && (!feeAsked || /初回|利用額|買取額|いくらから|何円から|何万円から/.test(q));
+    const firstAsked = amountAsked && /初回|初めて|はじめて/.test(q);
+    const topicIds = ['fees','documents','speed','contracts'].filter(id => {
+      if (id === 'fees') return feeAsked;
+      return topics.find(t => t.id === id)?.words.some(w => q.includes(normal(w)));
+    });
+    // Amount questions must not be captured by the generic fee keyword "いくら".
+    if (amountAsked) topicIds.unshift('amount');
+    if (companies.length) {
+      const companyAnswer = company => {
+        const sections = topicIds.map(id => {
+          if (id === 'fees') return `公表手数料：${company.fee || '単一の料率は掲載していません。'}\n${company.feeNote || ''}\n${company.note || ''}`;
+          if (id === 'amount') {
+            const first = company.profile?.firstMax;
+            const lines = [`買取金額：${company.amount || '具体的な金額条件は掲載していません。'}`, company.amountNote || ''];
+            if (firstAsked) lines.unshift(Number.isFinite(first) ? `公表の初回上限：${first}万円` : '初回専用の上限額は掲載情報から確認できません。一般の買取範囲が初回にも適用されるとは限らないため、公式窓口で確認してください。');
+            else if (Number.isFinite(first)) lines.push(`初回上限：${first}万円`);
+            if (company.profile?.requirement) lines.push(company.profile.requirement);
+            lines.push('買取可否・実際の利用枠は審査や契約条件によります。');
+            return lines.filter(Boolean).join('\n');
+          }
+          if (id === 'documents') return company.detail?.docs?.length ? '必要書類として掲載している内容：\n・'+company.detail.docs.join('\n・')+'\n\n追加書類や提出形式は公式窓口で確認してください。' : '必要書類の具体的な条件は、このサイトには掲載していません。';
+          if (id === 'speed') return `${company.speed || '入金時間の具体的な条件は掲載していません。'}\n${company.speedNote || ''}\n\n最短時間は条件付きの目安であり、希望日の入金を保証するものではありません。`;
+          return `契約方式：${company.profile?.contract || '掲載していません。'}\n通知・承諾：${company.profile?.notice || '掲載していません。'}\n契約条項は公式窓口で確認してください。`;
+        });
+        if (!sections.length) sections.push(`${company.description}\n${company.amount ? '買取金額：'+company.amount : ''}\n${company.note || ''}`);
+        return `${company.name}の掲載情報\n${sections.join('\n\n')}\n基本情報の確認日：${company.checkedAt}（追加項目の確認日は詳細・出典に記載）`;
+      };
+      const links = companies.map(company => [`${company.name}の詳細・出典`,'company/'+company.id+'/#sources']);
+      if (companies.length > 1) links.unshift(['この会社を比較表で見る','company/?compare='+companies.map(s=>s.id).join(',')+'#compare']);
+      return {answer:companies.map(companyAnswer).join('\n\n────────\n\n'),links};
     }
+    if (amountAsked) {
+      if (firstAsked) return {answer:'初回の上限額は会社ごとに異なります。会社名と「初回上限」を入力すると、その会社の掲載条件をご案内します。条件診断でも初回利用を指定できます。',links:[['初回利用の確認事項','guide/first-use/'],['初回条件を指定して診断する','match/?first=first']]};
+      return {answer:'公表されている買取金額は会社ごとに異なります。掲載例は次のとおりです。\n\n'+all.filter(s=>s.amount).map(s=>`${s.name}：${s.amount}${s.amountNote?'（'+s.amountNote+'）':''}`).join('\n')+'\n\n下限・上限が未確認の項目を、制限なしとは扱いません。買取可否・初回の利用枠は別途確認が必要です。会社名を添えると対象の条件をご案内します。',links:[['金額条件を比較する','compare/amount/'],['初回利用の確認事項','guide/first-use/']]};
+    }
+    const topic = topics.find(t => topicIds.includes(t.id)) || topics.find(t => t.words.some(w => q.includes(normal(w))));
     if (topic) return topic;
     return {answer:'その質問に答えられる内容は、掲載情報から見つかりませんでした。手数料・書類・入金時間などの言葉や、会社名を添えて聞いてみてください。個別の審査結果・契約条件は各社の公式窓口で確認が必要です。',links:[['会社一覧・公式窓口の案内','company/'],['条件診断を使う','match/']]};
   };

@@ -508,24 +508,16 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:760px){.quote-grid{grid-template-columns:1fr}.quote-comparison{padding:0 16px 32px}}
 @media(max-width:600px){.reference-mobile-intro{display:block;margin:16px 16px 8px;font-size:15px;line-height:1.8;color:#263e35;text-align:center}}
 
-/* Review follow-up: keep all company conditions available without a long repeated feed. */
+/* Purpose-based service cards are always visible, per user request. */
 .homepage .lower-page .ad-category{padding:0;margin:12px 0;border:1px solid #cfddd5;border-radius:14px;background:#fff;overflow:hidden}
 .homepage .lower-page .ad-category+.ad-category{padding-top:0;margin-top:12px}
-.purpose-disclosure>summary{display:block;padding:20px;cursor:pointer;list-style:none}
-.purpose-disclosure>summary::-webkit-details-marker{display:none}
-.purpose-disclosure>summary:focus-visible,.feature-disclosure>summary:focus-visible{outline:3px solid #236345;outline-offset:-4px}
+.purpose-heading{display:block;padding:20px}
 .purpose-companies{display:block;margin:8px 0;color:#52665c;font-size:12px;overflow-wrap:anywhere}
-.purpose-toggle{display:block;color:#236345;font-size:13px;font-weight:700;margin-top:12px}
-.purpose-disclosure[open]>summary>.purpose-toggle{transform:none}
-.purpose-disclosure .ad-category-description{font-weight:400}
-.purpose-disclosure .when-open,.purpose-disclosure[open] .when-closed{display:none}
-.purpose-disclosure[open] .when-open{display:inline}
+.purpose-group .ad-category-description{font-weight:400}
 .purpose-content{padding:0 20px 20px}.purpose-content .ad-grid{margin-top:14px}
-.feature-disclosure{border:1px solid #cfddd5;border-radius:14px;margin-block:28px;background:#fff}
-.feature-disclosure>summary{padding:18px 20px;color:#236345;font-weight:700;cursor:pointer}
 .fee-unknown-heading{grid-column:1/-1;border-top:2px solid #cfddd5;padding-top:22px;margin-top:12px}
 .fee-unknown-heading h3{margin:0 0 8px;font-size:19px}.fee-unknown-heading p{margin:0;color:#52665c;font-size:13px;line-height:1.8}
-@media(max-width:760px){.purpose-disclosure>summary{padding:16px}.purpose-content{padding:0 16px 16px}.homepage .lower-page .purpose-disclosure h3{font-size:19px}.purpose-disclosure .ad-category-description{font-size:12px}}
+@media(max-width:760px){.purpose-heading{padding:16px}.purpose-content{padding:0 16px 16px}.homepage .lower-page .purpose-group h3{font-size:19px}.purpose-group .ad-category-description{font-size:12px}}
 /* Always-visible editorial pickup; existing detailed comparisons stay available. */
 .homepage .priority-pickup{padding-block:24px 32px}
 .priority-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}

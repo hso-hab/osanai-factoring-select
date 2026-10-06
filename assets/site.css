@@ -573,26 +573,30 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .mascot-copy .mascot-message{font-size:23px;font-weight:800;line-height:1.5;color:#213f30;letter-spacing:.02em}
 .mascot-copy .mascot-description{font-size:12px;color:#52665c;line-height:1.8;margin-top:7px}
 .mascot-mobile-break{display:none}.mascot-cta{white-space:nowrap;border-color:#66947b;color:#236345;gap:14px}
-.mascot-arm-right{transform-origin:145px 112px}.mascot-arm-left{transform-origin:58px 112px}.mascot-eyes{transform-origin:100px 90px}.mascot-sprout{transform-origin:100px 44px}.mascot-body{transform-origin:100px 155px}.mascot-shadow{transform-origin:100px 171px}.mascot-sparkles{opacity:0;transform-origin:100px 75px}
-@media(prefers-reduced-motion:no-preference){
- .mascot-play.is-greeting .mascot-body{animation:mascot-bob 900ms ease-in-out 2}
- .mascot-play.is-greeting .mascot-arm-right{animation:mascot-wave 450ms ease-in-out 5}
- .mascot-play.is-greeting .mascot-arm-left{animation:mascot-left 900ms ease-in-out 2}
- .mascot-play.is-greeting .mascot-eyes{animation:mascot-blink 1100ms ease-in-out 2}
- .mascot-play.is-greeting .mascot-sprout{animation:mascot-leaf 600ms ease-in-out 3}
- .mascot-play.is-greeting .mascot-shadow{animation:mascot-shadow 900ms ease-in-out 2}
- .mascot-play.is-greeting .mascot-sparkles{animation:mascot-sparkle 1800ms ease-out both}
- .mascot-cta span{display:inline-block;transition:transform 200ms ease}.mascot-cta:hover span{transform:translate(2px,-2px)}
-}
-@keyframes mascot-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@keyframes mascot-wave{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-16deg)}70%{transform:rotate(9deg)}}
-@keyframes mascot-left{0%,100%{transform:rotate(0deg)}50%{transform:rotate(8deg)}}
-@keyframes mascot-blink{0%,35%,47%,100%{transform:scaleY(1)}41%{transform:scaleY(.12)}}
-@keyframes mascot-leaf{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-8deg)}70%{transform:rotate(5deg)}}
-@keyframes mascot-shadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.87);opacity:.65}}
-@keyframes mascot-sparkle{0%,100%{opacity:0;transform:scale(.8)}25%,60%{opacity:1;transform:scale(1)}}
 @media(max-width:760px){.mascot-guide{grid-template-columns:112px 1fr;gap:8px 14px;padding:12px 18px 18px;margin-block:16px}.mascot-play{width:110px;height:105px}.mascot-cta{grid-column:2;justify-self:start;font-size:12px;min-height:44px}.mascot-stage{grid-row:1/3;align-self:center}.mascot-copy .mascot-message{font-size:20px}.mascot-description{display:none}.mascot-mobile-break{display:block}.mascot-copy .mascot-kicker{font-size:10px;letter-spacing:0}}
 @media(max-width:360px){.mascot-guide{grid-template-columns:90px 1fr;gap:8px;padding-inline:12px}.mascot-play{width:90px;height:90px}.mascot-copy .mascot-message{font-size:18px}.mascot-cta{padding-inline:10px}.mascot-hint{font-size:9px}}
-@media print{.mascot-guide{display:none}}
+
+/* Free-flight robot. The artwork itself never captures a click or tap. */
+.robot-body{transform-origin:100px 98px}.robot-eyes{transform-origin:100px 65px}.robot-arm-left{transform-origin:63px 108px}.robot-arm-right{transform-origin:137px 108px}.robot-thrust{transform-origin:100px 143px}
+.roaming-mascot{position:fixed;left:0;top:0;width:88px;height:84px;z-index:65;pointer-events:none!important;will-change:transform;filter:drop-shadow(0 5px 5px #123b3025)}
+.roaming-mascot *{pointer-events:none!important}.roaming-mascot .robot-orbit{display:none}.roaming-mascot[hidden]{display:none!important}
+.mascot-dock{position:fixed;right:12px;bottom:12px;z-index:80;display:flex;gap:4px;max-width:calc(100vw - 24px);padding:4px;background:#fff;border:1px solid #cfddd5;border-radius:14px;box-shadow:0 3px 16px #173b2612}
+.mascot-dock[hidden]{display:none}.mascot-dock button{font:inherit;font-size:11px;font-weight:700;color:#244d3c;background:#fff;min-height:36px;border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
+.mascot-dock button:hover{background:#fff;box-shadow:inset 0 0 0 1px #7caa94}.mascot-dock button:disabled{opacity:.6;cursor:default}.mascot-dock button:focus-visible{outline:3px solid #236345;outline-offset:1px}
+body.has-roaming-mascot{padding-bottom:70px}
+@media(prefers-reduced-motion:no-preference){
+ .is-flying .robot-body{animation:robot-float 1800ms ease-in-out infinite}.is-flying .robot-eyes{animation:robot-blink 4300ms ease-in-out infinite}.is-flying .robot-thrust{animation:robot-jet 420ms ease-in-out infinite}.is-flying .robot-speed{animation:robot-trail 1100ms ease-in-out infinite}
+ .mascot-play.is-greeting .robot-body{animation:robot-float 800ms ease-in-out 3}.mascot-play.is-greeting .robot-arm-right{animation:robot-salute 700ms ease-in-out 3}.mascot-play.is-greeting .robot-core{animation:robot-signal 600ms ease-in-out 4}
+ .mascot-cta span{display:inline-block;transition:transform 200ms ease}.mascot-cta:hover span{transform:translate(2px,-2px)}
+}
+@keyframes robot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes robot-blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.15)}}
+@keyframes robot-jet{0%,100%{transform:scaleY(.85);opacity:.65}50%{transform:scaleY(1.1);opacity:1}}
+@keyframes robot-trail{0%,100%{opacity:0}50%{opacity:.75}}
+@keyframes robot-salute{0%,100%{transform:rotate(0deg)}40%,65%{transform:rotate(-28deg)}}
+@keyframes robot-signal{0%,100%{opacity:1}50%{opacity:.35}}
+@media(max-width:760px){.roaming-mascot{width:66px;height:63px}.mascot-dock{right:8px;bottom:8px;padding:2px;border-radius:12px}.mascot-dock button{min-height:44px;padding-inline:10px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.roaming-mascot{display:none!important}}
+@media print{.mascot-guide,.roaming-mascot,.mascot-dock{display:none!important}body.has-roaming-mascot{padding-bottom:0}}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

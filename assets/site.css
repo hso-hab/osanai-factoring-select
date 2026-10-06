@@ -425,4 +425,42 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
  .homepage .green-photo-hero .reference-mobile-actions .solid{background:#236345!important}
 }
 
+/* User reference, 2026-10-06: full-width previews and three concise conditions. */
+.homepage .lower-page .ad-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
+.homepage .lower-page .reference-company{display:flex;flex-direction:column;min-width:0;border:1px solid #e0e5e8;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 3px 12px #172b2710;padding:0}
+.reference-company::before{content:'';height:6px;flex-shrink:0;background:linear-gradient(100deg,#ff9638,#09cbb7)}
+.reference-company-image{display:block;flex-shrink:0;line-height:0}
+.reference-company-image img{display:block;width:100%;height:auto;aspect-ratio:1280/600;object-fit:contain}
+.reference-company-body{display:flex;flex-direction:column;flex:1;padding:18px;min-width:0}
+.reference-company-name{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px}
+.reference-company-name h4{font-size:18px;font-weight:800;line-height:1.4;letter-spacing:0;margin:0;color:#101827}
+.reference-company-name h4 a{color:inherit}.reference-company-name p{font-size:11px;line-height:1.5;color:#566376;margin:3px 0 0}
+.reference-company-pr{font-size:10px;line-height:1.5;color:#52665c;flex-shrink:0}
+.reference-company-description{font-size:12px;line-height:1.7;color:#566376;margin:14px 0;min-height:62px}
+.reference-company-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0}
+.reference-company-metrics>div{border:1px solid #e7ecef;border-radius:8px;min-width:0;min-height:64px;padding:8px 4px;text-align:center;background:#fff}
+.reference-company-metrics dt{font-size:10px;line-height:1.5;color:#637081;margin:0 0 2px}
+.reference-company-metrics dd{font-size:12px;font-weight:800;line-height:1.35;margin:0;color:#101827;overflow-wrap:anywhere}
+.reference-company-metrics small{display:block;font-size:10px;font-weight:400;line-height:1.4;margin-top:3px}
+.reference-company-evidence{font-size:10px;line-height:1.5;color:#637081;margin:9px 0 14px}
+.reference-company-evidence a{text-decoration:underline;text-underline-offset:2px}
+.reference-company-actions{display:grid;gap:8px;margin-top:auto}
+.homepage .reference-company-actions a{display:flex;justify-content:center;align-items:center;min-height:44px;border-radius:11px;padding:10px 8px;font-size:14px;font-weight:800;line-height:1.5;text-align:center;text-decoration:none}
+.homepage .reference-company-actions .reference-company-detail{background:#101827!important;color:#fff!important}
+.homepage .reference-company-actions .reference-company-official{background:#ff9234!important;color:#fff!important}
+.reference-company a:focus-visible{outline:3px solid #236345;outline-offset:-3px}.reference-company-actions a:hover{filter:brightness(.95)}
+@media(max-width:1023px){.homepage .lower-page .ad-grid{grid-template-columns:1fr;gap:20px;max-width:390px;margin-inline:auto}.reference-company-description{min-height:0}}
+@media(max-width:359px){.reference-company-body{padding:14px}.reference-company-metrics{gap:5px}.reference-company-metrics dd{font-size:11px}}
+.homepage .reference-company::before{background:linear-gradient(100deg,#ff9638,#09cbb7)!important}
+.homepage .reference-company-body{padding:16px 18px}
+.homepage .reference-company-name{min-height:40px}
+.homepage .reference-company-name h4{font-size:18px;line-height:1.4}
+.homepage .reference-company-description{font-size:12px;line-height:1.6;min-height:58px;margin:10px 0}
+.homepage .reference-company-metrics>div{padding:7px 4px}
+.homepage .reference-company-metrics dd{font-size:11px;line-height:1.4}
+.homepage .reference-company-metrics small{font-size:9px;line-height:1.4}
+.homepage .reference-company-evidence{font-size:10px;line-height:1.4;margin:6px 0 8px}
+@media(max-width:1023px){.homepage .reference-company-description{min-height:0}}
+@media(max-width:359px){.homepage .reference-company-body{padding:14px}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

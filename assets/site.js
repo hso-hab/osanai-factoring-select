@@ -19,19 +19,27 @@ function card(s){
 function adValue(value){return esc(value).replace(/(\d+(?:[.,]\d+)?(?:万円|時間|分|%|円|万))/g,'<span class="metric-unit">$1</span>');}
 function spotlight(s,topic='individual'){
  const summaries={
-  hso:'個人事業主・フリーランス向けの請求書ファクタリング。',
-  trustlyne:'請求書の提出から手続きまで、LINEで進められます。',
-  paytner:'少額の請求書に対応。個人の取引先への請求書も対象。',
-  ququmo:'請求書と通帳を中心に申請。法人・個人事業主に対応。',
-  paytoday:'手数料の下限・上限を公表。フリーランスにも対応。',
-  olta:'請求書の全額だけでなく、一部の買取にも対応。',
-  labol:'Webから申し込みできる、請求書買取サービス。',
-  betrading:'個人事業主・フリーランス・法人の資金調達に対応。',
-  support:'個人事業主も相談可能。申込から契約まで非対面で対応。',
-  accel:'利用額・契約方式別の料率表を公開。個人事業主も対象。'
+  hso:'個人事業主・フリーランス向けの請求書ファクタリング。株式会社HSOが運営する自社サービスです。',
+  trustlyne:'個人事業主・フリーランス向け。請求書の提出から手続きまでLINEで完結。入金目安は申込時ではなく、審査完了後から。',
+  paytner:'少額の請求書や、個人の取引先への請求書に対応。入金目安は営業時間内に審査開始した申請が対象。時間外は翌営業日。',
+  ququmo:'請求書と通帳の2点を中心に申請。法人・個人事業主に対応。入金目安は必要書類が揃った申込から。電話確認の場合あり。',
+  paytoday:'法人からフリーランスまでオンラインで申請。手数料の下限・上限を公表。審査結果は24時間以内にメールで回答。',
+  olta:'個人事業主も対象。請求書の一部買取にも対応。書類完備後1営業日以内に見積、契約後は即日〜翌営業日に振込。',
+  labol:'1万円からWebで申請。振込手数料などの追加費用なし。審査完了分は24時間365日振込（審査は24時間対応ではありません）。',
+  betrading:'1万〜300万円向けオンライン窓口の条件を掲載。300万円を超える個人事業主の相談は別窓口で、条件も異なります。',
+  support:'個人事業主も相談可能。申込から契約まで非対面で対応。審査結果は最短30分、入金は最短3時間と案内しています。',
+  accel:'個人事業主も対象。利用額・契約方式別の料率表を公開し、オンライン手続きに対応。調達目安は必要書類の送付から。'
  };
- const facts=topic==='fees'?(s.fee+'。'+s.feeNote):topic==='small'?(s.amount+'。'+s.amountNote):topic==='online'?(s.id==='accel'?'請求書・通帳3カ月分・身分証を案内。オンライン契約に対応。':s.id==='olta'?'事業口座の実績4カ月以上・法人や官公庁宛てが対象。':'請求書・通帳を中心に申請。状況により電話ヒアリングあり。'):null;
- return `<article class="spotlight ad-card compact-company" data-ad-service="${s.id}"><a class="compact-company-main" href="/osanai-factoring-select/company/${s.id}/"><img src="/osanai-factoring-select/${esc(s.image.src)}" width="80" height="54" alt="${esc(s.name)}の公式サイト上部" loading="lazy" decoding="async"><div class="compact-company-copy"><p class="compact-company-kicker">${s.id==='hso'?'広告・PR｜自社サービス':esc(s.channel||s.audience)}</p><h4>${esc(s.name)}</h4><p class="compact-company-summary">${esc(facts||summaries[s.id]||s.description)}</p></div></a><div class="compact-company-footer"><a href="/osanai-factoring-select/company/${s.id}/#sources" class="compact-company-source">詳細・出典 <span>↗</span></a>${s.externalCta?`<a class="compact-company-official" href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" target="_blank" rel="${s.sponsored?'sponsored ':''}noopener noreferrer" aria-label="${esc(s.name)}の公式サイトを新しいタブで開く">公式サイト ↗</a>`:''}</div></article>`;
+ const feeNotes={paytner:'振込手数料330円別途',paytoday:'オンライン利用時',olta:'諸経費込み'};
+ const metrics=s.id==='hso'?[['対象','個人事業主', 'フリーランス'],['サービス','請求書買取',''],['運営','株式会社HSO','']]:[
+  ['手数料',s.fee||'個別確認',feeNotes[s.id]||''],
+  ['入金の目安',s.speed,''],
+  ['買取金額',s.amount,['olta','paytoday'].includes(s.id)?'審査による':'']
+ ];
+ const detail='/osanai-factoring-select/company/'+s.id+'/';
+ const title=['trustlyne','labol'].includes(s.id)?s.kana:s.name;
+ const subtitle=['trustlyne','labol'].includes(s.id)?s.name:s.kana;
+ return `<article class="spotlight ad-card reference-company" data-ad-service="${s.id}"><a class="reference-company-image" href="${detail}" aria-label="${esc(s.name)}の詳細を見る"><img src="/osanai-factoring-select/${esc(s.image.src)}" width="${s.image.width}" height="${s.image.height}" alt="${esc(s.name)}の公式サイト上部" loading="lazy" decoding="async"></a><div class="reference-company-body"><div class="reference-company-name"><div><h4><a href="${detail}">${esc(title)}</a></h4><p>${esc(subtitle)}</p></div>${s.id==='hso'?'<span class="reference-company-pr">広告・PR<br>自社サービス</span>':''}</div><p class="reference-company-description">${esc(summaries[s.id])}</p><dl class="reference-company-metrics">${metrics.map(([label,value,note])=>`<div><dt>${label}</dt><dd>${esc(value)}${note?`<small>${esc(note)}</small>`:''}</dd></div>`).join('')}</dl><p class="reference-company-evidence"><a href="${detail}#sources">公式出典・条件詳細</a> · 確認 ${esc(s.checkedAt)}</p><div class="reference-company-actions"><a class="reference-company-detail" href="${detail}">詳細を見る →</a>${s.externalCta?`<a class="reference-company-official" href="${esc(s.outboundUrl||s.url)}" data-outbound="${s.id}" data-location="ad_card" target="_blank" rel="${s.sponsored?'sponsored ':''}noopener noreferrer" aria-label="${esc(s.name)}の公式サイトを新しいタブで開く">今すぐ公式サイトへ →</a>`:''}</div></div></article>`;
 }
 function adGroups(items){
  const groups=[

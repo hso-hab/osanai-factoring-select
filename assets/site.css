@@ -508,4 +508,35 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:760px){.quote-grid{grid-template-columns:1fr}.quote-comparison{padding:0 16px 32px}}
 @media(max-width:600px){.reference-mobile-intro{display:block;margin:16px 16px 8px;font-size:15px;line-height:1.8;color:#263e35;text-align:center}}
 
+/* Lightweight motion; approved artwork, content and layout remain unchanged. */
+@media (prefers-reduced-motion: no-preference) {
+  :where(.site-button, .button, .nav-cta, .ad-actions a, .ad-actions button, .reference-company-actions a, .entry-topics a, .ad-category-nav a) {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+  :where(.ad-card, .service-card, .feature-ad, .match-card) {
+    transition: box-shadow 220ms ease, border-color 220ms ease;
+  }
+  :where(.site-button, .button, .nav-cta, .ad-actions a, .ad-actions button, .reference-company-actions a):active:not(:disabled) {
+    transform: translateY(1px) scale(.985);
+  }
+  details[open] > :not(summary) { animation: detail-arrive 200ms ease-out; }
+  @media (hover: hover) and (pointer: fine) {
+    :where(.site-button, .button, .nav-cta, .ad-actions a, .ad-actions button, .reference-company-actions a, .entry-topics a, .ad-category-nav a):hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 14px #173b2614;
+    }
+    .lower-page .ad-card:hover, .service-card:hover, .feature-ad:hover, .match-card:hover {
+      box-shadow: 0 8px 24px #173b2612;
+    }
+  }
+}
+@keyframes detail-arrive { from { opacity: .55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media print {
+  *, *::before, *::after { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
+}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

@@ -539,4 +539,28 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
   *, *::before, *::after { animation: none !important; transition: none !important; transform: none !important; opacity: 1 !important; }
 }
 
+/* Motion plus: a reading-position cue and interaction feedback across the site. */
+.reading-progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:10000;background:linear-gradient(90deg,#236345,#8fbba5);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.site-header.motion-scrolled{box-shadow:0 5px 22px #173b2612}
+@media(prefers-reduced-motion:no-preference){
+ .site-header{transition:box-shadow 240ms ease}
+ .site-header nav>a:not(.nav-cta),.reader-shortcuts a,.footer-column>a,.reading-links a{
+  background-image:linear-gradient(#236345,#236345);background-repeat:no-repeat;background-position:left bottom;background-size:0 2px;transition:background-size 260ms ease,color 180ms ease;
+ }
+ .site-header nav>a:not(.nav-cta):is(:hover,:focus-visible),.reader-shortcuts a:is(:hover,:focus-visible),.footer-column>a:is(:hover,:focus-visible),.reading-links a:is(:hover,:focus-visible){background-size:100% 2px}
+ .match-form fieldset,.quote-card,.calculator input,.match-form input,.match-form select{transition:border-color 220ms ease,box-shadow 220ms ease}
+ .match-form fieldset:focus-within,.quote-card:focus-within{border-color:#538b6e;box-shadow:0 0 0 3px #23634512}
+ .guide-tile,.selection-grid article,.depth-links>a,.reading-cards>a{transition:box-shadow 240ms ease,border-color 240ms ease}
+ .table-views button,.comparison-topics button,.entry-topics a,.ad-category-nav a{transition:box-shadow 220ms ease,border-color 220ms ease,color 220ms ease}
+ .table-views button[aria-pressed=true],.comparison-topics button[aria-pressed=true]{box-shadow:0 3px 10px #23634525}
+ .mobile-menu>summary{transition:box-shadow 220ms ease}
+ .mobile-menu[open]>summary{box-shadow:0 0 0 3px #23634518}
+ .faq-list summary span{display:inline-block;transition:transform 240ms ease}
+ .faq-list details[open] summary span{transform:rotate(45deg)}
+ @media(hover:hover) and (pointer:fine){
+  .guide-tile:hover,.selection-grid article:hover,.depth-links>a:hover,.reading-cards>a:hover{border-color:#7b9d8b;box-shadow:0 8px 24px #173b2614}
+ }
+}
+@media print{.reading-progress{display:none}.site-header.motion-scrolled{box-shadow:none}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

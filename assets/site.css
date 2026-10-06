@@ -563,4 +563,36 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 }
 @media print{.reading-progress{display:none}.site-header.motion-scrolled{box-shadow:none}}
 
+.mascot-guide{display:grid;grid-template-columns:138px 1fr auto;gap:18px;align-items:center;padding:8px 24px 12px;margin-block:20px 24px;border:1px solid #dce6e0;border-radius:22px;background:#fff}
+.mascot-stage{position:relative;text-align:center;min-width:0;padding-bottom:13px}
+.mascot-play{display:block;width:136px;height:130px;margin:0 auto;padding:0;border:0;background:transparent;border-radius:22px;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.mascot-play:disabled{opacity:1;cursor:default}.mascot-play:focus-visible{outline:3px solid #236345;outline-offset:3px}
+.select-mascot{display:block;width:100%;height:100%;overflow:visible}
+.mascot-hint{position:absolute;bottom:0;left:0;right:0;font-size:10px;color:#52665c;line-height:1.5;white-space:nowrap}
+.mascot-copy p{margin:0}.mascot-copy .mascot-kicker{font-size:11px;letter-spacing:.08em;color:#34674f;font-weight:700;margin-bottom:6px}
+.mascot-copy .mascot-message{font-size:23px;font-weight:800;line-height:1.5;color:#213f30;letter-spacing:.02em}
+.mascot-copy .mascot-description{font-size:12px;color:#52665c;line-height:1.8;margin-top:7px}
+.mascot-mobile-break{display:none}.mascot-cta{white-space:nowrap;border-color:#66947b;color:#236345;gap:14px}
+.mascot-arm-right{transform-origin:145px 112px}.mascot-arm-left{transform-origin:58px 112px}.mascot-eyes{transform-origin:100px 90px}.mascot-sprout{transform-origin:100px 44px}.mascot-body{transform-origin:100px 155px}.mascot-shadow{transform-origin:100px 171px}.mascot-sparkles{opacity:0;transform-origin:100px 75px}
+@media(prefers-reduced-motion:no-preference){
+ .mascot-play.is-greeting .mascot-body{animation:mascot-bob 900ms ease-in-out 2}
+ .mascot-play.is-greeting .mascot-arm-right{animation:mascot-wave 450ms ease-in-out 5}
+ .mascot-play.is-greeting .mascot-arm-left{animation:mascot-left 900ms ease-in-out 2}
+ .mascot-play.is-greeting .mascot-eyes{animation:mascot-blink 1100ms ease-in-out 2}
+ .mascot-play.is-greeting .mascot-sprout{animation:mascot-leaf 600ms ease-in-out 3}
+ .mascot-play.is-greeting .mascot-shadow{animation:mascot-shadow 900ms ease-in-out 2}
+ .mascot-play.is-greeting .mascot-sparkles{animation:mascot-sparkle 1800ms ease-out both}
+ .mascot-cta span{display:inline-block;transition:transform 200ms ease}.mascot-cta:hover span{transform:translate(2px,-2px)}
+}
+@keyframes mascot-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes mascot-wave{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-16deg)}70%{transform:rotate(9deg)}}
+@keyframes mascot-left{0%,100%{transform:rotate(0deg)}50%{transform:rotate(8deg)}}
+@keyframes mascot-blink{0%,35%,47%,100%{transform:scaleY(1)}41%{transform:scaleY(.12)}}
+@keyframes mascot-leaf{0%,100%{transform:rotate(0deg)}35%{transform:rotate(-8deg)}70%{transform:rotate(5deg)}}
+@keyframes mascot-shadow{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.87);opacity:.65}}
+@keyframes mascot-sparkle{0%,100%{opacity:0;transform:scale(.8)}25%,60%{opacity:1;transform:scale(1)}}
+@media(max-width:760px){.mascot-guide{grid-template-columns:112px 1fr;gap:8px 14px;padding:12px 18px 18px;margin-block:16px}.mascot-play{width:110px;height:105px}.mascot-cta{grid-column:2;justify-self:start;font-size:12px;min-height:44px}.mascot-stage{grid-row:1/3;align-self:center}.mascot-copy .mascot-message{font-size:20px}.mascot-description{display:none}.mascot-mobile-break{display:block}.mascot-copy .mascot-kicker{font-size:10px;letter-spacing:0}}
+@media(max-width:360px){.mascot-guide{grid-template-columns:90px 1fr;gap:8px;padding-inline:12px}.mascot-play{width:90px;height:90px}.mascot-copy .mascot-message{font-size:18px}.mascot-cta{padding-inline:10px}.mascot-hint{font-size:9px}}
+@media print{.mascot-guide{display:none}}
+
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

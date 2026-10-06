@@ -9,6 +9,10 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
   flyer.className = 'roaming-mascot'; flyer.setAttribute('aria-label', 'ナビロボに質問する'); flyer.setAttribute('aria-haspopup', 'dialog'); flyer.setAttribute('aria-controls', 'robot-chat');
   button.setAttribute('aria-haspopup', 'dialog'); button.setAttribute('aria-controls', 'robot-chat');
   flyer.append(button.querySelector('svg').cloneNode(true));
+  const speech = document.createElement('span'); speech.className = 'robot-speech';
+  speech.textContent = 'わからないことがあれば、お助けロボがサポートするよ！';
+  const speechHint = document.createElement('small'); speechHint.textContent = 'タップして質問してね';
+  speech.append(speechHint); flyer.append(speech);
   const dock = document.createElement('div'); dock.className = 'mascot-dock'; dock.setAttribute('role', 'group'); dock.setAttribute('aria-label', 'ナビロボの表示');
   const pause = document.createElement('button'), hide = document.createElement('button');
   pause.type = hide.type = 'button'; hide.textContent = '隠す'; hide.setAttribute('aria-label', 'ナビロボを隠す');
@@ -29,7 +33,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
     flyer.classList.remove('is-flying');
   };
   const measure = () => {
-    const small = innerWidth <= 760, size = small ? 96 : 128, height = small ? 92 : 122;
+    const small = innerWidth <= 760, size = parseFloat(getComputedStyle(flyer).width), height = parseFloat(getComputedStyle(flyer).height);
     let inset = small ? 8 : 12;
     for (const blocker of blockers) {
       if (blocker.hidden || getComputedStyle(blocker).display === 'none') continue;
@@ -39,7 +43,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
     dock.style.bottom = `${inset}px`;
     // Reserve the control dock and bottom CTA region; keep the flight below the header.
     const bottom = Math.max(90, innerHeight - inset - 58 - height - 14);
-    limits = {left: 6, right: Math.max(6, innerWidth - size - 6), top: Math.min(bottom, Math.max(90, innerHeight * .26)), bottom};
+    limits = {left: 6, right: Math.max(6, innerWidth - size - 6), top: Math.min(bottom, Math.max(90 + speech.offsetHeight + 12, innerHeight * .26)), bottom};
     if (!initialized) {x = limits.right; y = limits.bottom; initialized = true;}
     x = Math.max(limits.left, Math.min(limits.right, x)); y = Math.max(limits.top, Math.min(limits.bottom, y));
     flyer.style.transform = `translate(${x}px, ${y}px)`;
@@ -57,8 +61,8 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
     if (!canFly()) return;
     stopFlight();
     const [tx, ty] = target, distance = Math.hypot(tx - x, ty - y);
-    const duration = Math.min(8500, Math.max(2600, distance * 11));
-    const lean = tx > x ? 5 : tx < x ? -5 : 0;
+    const duration = Math.min(40000, Math.max(7800, distance * 33));
+    const lean = tx > x ? 2 : tx < x ? -2 : 0;
     flyer.classList.add('is-flying');
     flight = flyer.animate([
       {transform: `translate(${x}px, ${y}px) rotate(0deg)`},

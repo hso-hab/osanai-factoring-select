@@ -568,6 +568,8 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .mascot-play{display:block;width:174px;height:166px;margin:0 auto;padding:0;border:0;background:transparent;border-radius:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .mascot-play:disabled{opacity:1;cursor:default}.mascot-play:focus-visible{outline:3px solid #236345;outline-offset:3px}
 .select-mascot{display:block;width:100%;height:100%;overflow:visible}
+/* The site's white-surface reset also targets SVG: exempt only the robot artwork. */
+.mascot-stage,.select-mascot,.select-mascot *{background:transparent!important;box-shadow:none!important}
 .mascot-hint{position:absolute;bottom:0;left:0;right:0;font-size:10px;color:#52665c;line-height:1.5;white-space:nowrap}
 .mascot-copy p{margin:0}.mascot-copy .mascot-kicker{font-size:11px;letter-spacing:.08em;color:#34674f;font-weight:700;margin-bottom:6px}
 .mascot-copy .mascot-message{font-size:23px;font-weight:800;line-height:1.5;color:#213f30;letter-spacing:.02em}
@@ -578,14 +580,18 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 
 /* The borderless robot opens a question panel; hover/focus stop flight. */
 .robot-body{transform-origin:100px 98px}.robot-eyes{transform-origin:100px 65px}.robot-arm-left{transform-origin:63px 108px}.robot-arm-right{transform-origin:137px 108px}.robot-thrust{transform-origin:100px 143px}
-.roaming-mascot{position:fixed;left:0;top:0;width:128px;height:122px;z-index:65;pointer-events:auto;will-change:transform;filter:drop-shadow(0 5px 5px #123b3025)}
+.roaming-mascot{position:fixed;left:0;top:0;width:184px;height:122px;z-index:65;pointer-events:auto;will-change:transform;filter:none}
+.roaming-mascot .select-mascot{width:128px;height:122px;margin-inline:auto}
+.robot-speech{position:absolute;bottom:calc(100% + 6px);left:0;width:100%;padding:11px 12px;border:1px solid #a9cbb9;border-radius:18px;background:#fff;color:#244d3c;font:600 12px/1.7 'Select Noto',sans-serif;text-align:left;white-space:normal}
+.robot-speech::after{content:'';position:absolute;top:100%;left:calc(50% - 6px);width:12px;height:12px;border-right:1px solid #a9cbb9;border-bottom:1px solid #a9cbb9;background:#fff;transform:translateY(-6px) rotate(45deg)}
+.robot-speech small{display:block;margin-top:4px;color:#52665c;font-size:10px;font-weight:400;text-align:center}
 .roaming-mascot *{pointer-events:none!important}.roaming-mascot .robot-orbit{display:none}.roaming-mascot[hidden]{display:none!important}
 .mascot-dock{position:fixed;right:12px;bottom:12px;z-index:80;display:flex;gap:4px;max-width:calc(100vw - 24px);padding:4px;background:#fff;border:1px solid #cfddd5;border-radius:14px;box-shadow:0 3px 16px #173b2612}
 .mascot-dock[hidden]{display:none}.mascot-dock button{font:inherit;font-size:11px;font-weight:700;color:#244d3c;background:#fff;min-height:36px;border:0;border-radius:10px;padding:7px 12px;cursor:pointer}
 .mascot-dock button:hover{background:#fff;box-shadow:inset 0 0 0 1px #7caa94}.mascot-dock button:disabled{opacity:.6;cursor:default}.mascot-dock button:focus-visible{outline:3px solid #236345;outline-offset:1px}
 body.has-roaming-mascot{padding-bottom:70px}
 @media(prefers-reduced-motion:no-preference){
- .is-flying .robot-body{animation:robot-float 1800ms ease-in-out infinite}.is-flying .robot-eyes{animation:robot-blink 4300ms ease-in-out infinite}.is-flying .robot-thrust{animation:robot-jet 420ms ease-in-out infinite}.is-flying .robot-speed{animation:robot-trail 1100ms ease-in-out infinite}
+ .is-flying .robot-body{animation:robot-float 3600ms ease-in-out infinite}.is-flying .robot-eyes{animation:robot-blink 4300ms ease-in-out infinite}.is-flying .robot-thrust{animation:robot-jet 1200ms ease-in-out infinite}.is-flying .robot-speed{animation:robot-trail 2400ms ease-in-out infinite}
  .mascot-play.is-greeting .robot-body{animation:robot-float 800ms ease-in-out 3}.mascot-play.is-greeting .robot-arm-right{animation:robot-salute 700ms ease-in-out 3}.mascot-play.is-greeting .robot-core{animation:robot-signal 600ms ease-in-out 4}
  .mascot-cta span{display:inline-block;transition:transform 200ms ease}.mascot-cta:hover span{transform:translate(2px,-2px)}
 }
@@ -595,7 +601,7 @@ body.has-roaming-mascot{padding-bottom:70px}
 @keyframes robot-trail{0%,100%{opacity:0}50%{opacity:.75}}
 @keyframes robot-salute{0%,100%{transform:rotate(0deg)}40%,65%{transform:rotate(-28deg)}}
 @keyframes robot-signal{0%,100%{opacity:1}50%{opacity:.35}}
-@media(max-width:760px){.roaming-mascot{width:96px;height:92px}.mascot-dock{right:8px;bottom:8px;padding:2px;border-radius:12px}.mascot-dock button{min-height:44px;padding-inline:10px;font-size:10px}}
+@media(max-width:760px){.roaming-mascot{width:164px;height:92px}.roaming-mascot .select-mascot{width:96px;height:92px}.robot-speech{font-size:11px;padding:9px 11px}.mascot-dock{right:8px;bottom:8px;padding:2px;border-radius:12px}.mascot-dock button{min-height:44px;padding-inline:10px;font-size:10px}}
 
 @media print{.mascot-guide,.roaming-mascot,.mascot-dock{display:none!important}body.has-roaming-mascot{padding-bottom:0}}
 /* No visible square around the character; only a keyboard-focus outline. */

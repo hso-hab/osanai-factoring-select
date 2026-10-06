@@ -166,10 +166,6 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 }
 .homepage .green-photo-hero *{background-color:transparent!important}
 .homepage .green-photo-hero h1 em{color:#125b46}
-/* User-corrected reference: handwritten hero only; preserve copy and layout. */
-@font-face{font-family:"Select Klee";src:url("fonts/klee-one-semibold-hero.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
-.homepage .green-photo-hero h1,
-.homepage .green-photo-hero h1 em{font-family:"Select Klee","Klee","YuKyokasho",serif!important;font-weight:600;font-style:oblique 8deg;letter-spacing:-.035em;-webkit-text-stroke:.2px currentColor}
 .homepage .green-photo-hero .primary{background-color:#236345!important;color:#fff;border-color:#236345;box-shadow:0 4px 0 #173f2f}
 .homepage .green-photo-hero .primary:hover{background-color:#1b5138!important}
 .homepage .green-photo-hero .hero-photo-label{background-color:#fff!important}
@@ -411,5 +407,22 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:700px){.peer-grid{grid-template-columns:1fr}.result-refinement>div{grid-template-columns:1fr}.entry-actions{display:grid}.entry-actions .site-button{width:100%;white-space:normal}.entry-topics{gap:12px;font-size:13px}.entry-topics span{width:100%}.depth-links{display:grid;width:100%}.homepage .ad-directory .compact-company-summary{font-size:12px}.result-refinement{padding:16px}}
 
 .result-selection-bar:not([hidden]){position:fixed;z-index:45;bottom:0;left:50%;transform:translateX(-50%);width:min(900px,100%);background:#fff;border:1px solid #c6d9cd;box-shadow:0 -3px 15px #17392a14;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}.result-selection-bar span{font-size:14px;font-weight:700;color:#205e46}.result-selection-bar button:disabled{opacity:.5;cursor:not-allowed}.match-results:has(.result-selection-bar:not([hidden])){padding-bottom:95px}
+
+/* Exact user-selected artwork: no font substitution or regenerated pixels. */
+.homepage .green-photo-hero:has(.reference-hero){background:none!important;border:0;border-radius:0;overflow:visible}
+.reference-hero{position:relative;width:100%;margin:0 auto;line-height:0}
+.reference-hero-image{display:block;width:100%;height:auto;aspect-ratio:1988/791}
+.reference-hotspot{position:absolute;display:block;top:73.1%;height:10.9%;border-radius:999px;background:transparent!important}
+.reference-find{left:11.57%;width:14.7%}
+.reference-compare{left:27.5%;width:7.2%}
+.reference-hotspot:focus-visible{outline:3px solid #d28c12;outline-offset:3px}
+.reference-mobile-actions{display:none}
+@media(max-width:760px){
+ .reference-hotspot{min-height:44px;transform:translateY(-10%)}
+ .reference-compare{width:11.3%}
+ .homepage .green-photo-hero .reference-mobile-actions{display:flex;gap:10px;padding:16px 20px;background:#fff!important}
+ .reference-mobile-actions .site-button{flex:1;min-height:44px;padding:10px 8px;font-size:12px}
+ .homepage .green-photo-hero .reference-mobile-actions .solid{background:#236345!important}
+}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

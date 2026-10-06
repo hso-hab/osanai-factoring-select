@@ -458,7 +458,7 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .homepage .reference-company-description{font-size:12px;line-height:1.6;min-height:58px;margin:10px 0}
 .homepage .reference-company-metrics>div{padding:7px 4px}
 .homepage .reference-company-metrics dd{font-size:11px;line-height:1.4}
-.homepage .reference-company-metrics small{font-size:9px;line-height:1.4}
+.homepage .reference-company-metrics small{font-size:12px;line-height:1.65;color:#45554d}
 .homepage .reference-company-evidence{font-size:10px;line-height:1.4;margin:6px 0 8px}
 @media(max-width:1023px){.homepage .reference-company-description{min-height:0}}
 @media(max-width:359px){.homepage .reference-company-body{padding:14px}}
@@ -482,5 +482,17 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media print{.reader-shortcuts,.reader-contents,.expanded-footer{display:none}.subpage .editorial-art{max-width:160px}}
 
 .reader-contents>summary::after,.reader-preview>summary::after,.footer-more>summary::after{content:" ＋";float:right;margin-left:12px}.reader-contents[open]>summary::after,.reader-preview[open]>summary::after,.footer-more[open]>summary::after{content:" −"}
+
+/* Compliance disclosures remain visible, including without JavaScript. */
+.hero-image-note{font-size:12px;color:#45554d;margin-block:12px 20px}
+.compliance-notice{border-block:1px solid #d6e3db;padding-block:20px;margin-block:20px 28px;background:#fff;color:#263e31}
+.compliance-notice strong{font-size:16px}.compliance-notice p{font-size:14px;line-height:1.85;margin:8px 0}.compliance-notice a{font-size:14px;text-decoration:underline;color:#236345}
+.homepage .reference-company-metrics{grid-template-columns:1fr;gap:0}
+.homepage .reference-company-metrics>div{display:grid;grid-template-columns:82px minmax(0,1fr);gap:8px;text-align:left;border:0;border-top:1px solid #e7ecef;border-radius:0;padding:10px 0;min-height:0}
+.homepage .reference-company-metrics dt{font-size:12px;color:#45554d;line-height:1.65}
+.homepage .reference-company-metrics dd{font-size:15px;line-height:1.6}
+.reference-company-conditions{font-size:12px;line-height:1.8;color:#45554d;margin:12px 0}
+.reference-company-pr{font-size:12px;color:#334a3b}.reference-company-evidence{font-size:12px}
+.ad-disclosure{color:#334a3b}.ad-disclosure span{line-height:1.8}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}

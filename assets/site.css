@@ -174,7 +174,7 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 @media(max-width:760px){.homepage .green-photo-hero{background-position:58% center}.homepage .green-photo-hero .hero-person img{border-width:3px}}
 
 /* Reference-led compact purpose cards. Keep the selected FV and detail pages intact. */
-.homepage .lower-page .ad-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.homepage .lower-page .ad-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 16px}
 .homepage .lower-page .compact-company{display:flex;flex-direction:column;border:1px solid #dce6e0;border-radius:15px;box-shadow:none;overflow:hidden}
 .compact-company-main{display:grid;grid-template-columns:80px minmax(0,1fr);gap:16px;align-items:center;padding:16px 18px 4px;color:#172b27;border-radius:14px}
 .compact-company-main img{display:block;width:80px;height:54px;object-fit:contain;border:1px solid #e2e8e4;border-radius:6px}
@@ -194,6 +194,14 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 .homepage .lower-page .ad-category+.ad-category{padding-top:24px;margin-top:26px}
 .compact-category-footer{display:flex;justify-content:flex-end;margin-top:14px}
 .compact-category-footer a{display:inline-flex;align-items:center;min-height:44px;padding:10px 20px;border-radius:24px;background-color:#236345!important;color:#fff;font-size:12px;font-weight:700}
+@media(min-width:1024px){
+ .homepage .compact-company-main{grid-template-columns:64px minmax(0,1fr);gap:12px;padding-inline:16px}
+ .homepage .compact-company-main img{width:64px;height:44px}
+ .homepage .compact-company-footer{padding-inline:16px;padding-bottom:12px}
+}
+@media(min-width:761px) and (max-width:1023px){
+ .homepage .lower-page .ad-grid{grid-template-columns:1fr}
+}
 @media(max-width:760px){
  .homepage .lower-page .ad-grid{grid-template-columns:1fr;gap:12px}
  .homepage .lower-page .ad-category-heading h3{font-size:21px}

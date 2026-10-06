@@ -166,6 +166,9 @@ html{scroll-behavior:smooth}a:focus-visible,button:focus-visible,input:focus-vis
 }
 .homepage .green-photo-hero *{background-color:transparent!important}
 .homepage .green-photo-hero h1 em{color:#125b46}
+/* Selected typography A: extra-bold square Gothic; retain copy and layout. */
+.homepage .green-photo-hero h1,
+.homepage .green-photo-hero h1 em{font-weight:900}
 .homepage .green-photo-hero .primary{background-color:#236345!important;color:#fff;border-color:#236345;box-shadow:0 4px 0 #173f2f}
 .homepage .green-photo-hero .primary:hover{background-color:#1b5138!important}
 .homepage .green-photo-hero .hero-photo-label{background-color:#fff!important}

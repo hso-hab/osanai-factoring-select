@@ -1,7 +1,7 @@
 (() => {
  const form=document.querySelector('#match-form'),results=document.querySelector('#match-results');
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const base='/osanai-factoring-select/';
+ const base='/';
  const feeLabels={all:'指定しない',fixed:'一律料率の会社',bounded:'料率の上限も公表している会社'};
  const feeField=document.createElement('fieldset');feeField.innerHTML='<legend>費用表示で候補を絞る（任意）</legend><label>比べたい費用表示<select name="fee" id="match-fee">'+Object.entries(feeLabels).map(([k,v])=>'<option value="'+k+'">'+v+'</option>').join('')+'</select></label><p class="doc-note">安さの順位ではありません。追加費用・対象条件は別途確認します。</p>';form.querySelector('[type=submit]').before(feeField);
  const feeMatches=(s,fee)=>fee==='all'||(fee==='fixed'?s.fee?.startsWith('一律'):s.fee?.startsWith('一律')||/〜[0-9]/.test(s.fee||''));

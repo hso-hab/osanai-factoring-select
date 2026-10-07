@@ -210,7 +210,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
     const entry = document.createElement('div'); entry.className = 'robot-message '+type;
     const p = document.createElement('p'); p.textContent = text; entry.append(p);
     for (const [label, href] of response?.links || []) {
-      const a = document.createElement('a'); a.textContent = label+' →'; a.href = (window.SITE_CONFIG?.basePath || '/osanai-factoring-select/')+href; entry.append(a);
+      const a = document.createElement('a'); a.textContent = label+' →'; a.href = (window.SITE_CONFIG?.basePath || '/')+href; entry.append(a);
     }
     if (response?.checkedAt) {const date = document.createElement('small'); date.textContent = '掲載情報の確認日：'+response.checkedAt; entry.append(date);}
     log.append(entry); while (log.children.length > 30) log.firstElementChild.remove();

@@ -1,13 +1,5 @@
 [
   {
-    "id": "ququmo",
-    "url": "https://ququmo.com/",
-    "src": "assets/screenshots/ququmo.jpg",
-    "capturedAt": "2026-10-04",
-    "width": 1280,
-    "height": 600
-  },
-  {
     "id": "hso",
     "url": "https://hso-hab.github.io/hso-factoring-lp/",
     "src": "assets/screenshots/hso.jpg",
@@ -17,66 +9,65 @@
   },
   {
     "id": "trustlyne",
-    "url": "https://trustlyne.jp/",
-    "src": "assets/screenshots/trustlyne.jpg",
-    "capturedAt": "2026-10-04",
+    "src": "assets/service-cards/trustlyne.svg",
     "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
   },
   {
-    "id": "paytner",
-    "url": "https://paytner.co.jp/",
-    "src": "assets/screenshots/paytner.jpg",
-    "capturedAt": "2026-10-04",
+    "id": "ququmo",
+    "src": "assets/service-cards/ququmo.svg",
     "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
   },
   {
     "id": "labol",
-    "url": "https://labol.co.jp/",
-    "src": "assets/screenshots/labol.jpg",
-    "capturedAt": "2026-10-04",
+    "src": "assets/service-cards/labol.svg",
     "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
+  },
+  {
+    "id": "paytner",
+    "src": "assets/service-cards/paytner.svg",
+    "width": 1280,
+    "height": 600,
+    "kind": "editorial-original"
   },
   {
     "id": "paytoday",
-    "url": "https://paytoday.jp/",
-    "src": "assets/screenshots/paytoday.jpg",
-    "capturedAt": "2026-10-04",
+    "src": "assets/service-cards/paytoday.svg",
     "width": 1280,
-    "height": 600
-  },
-  {
-    "id": "support",
-    "url": "https://chushokigyo-support.or.jp/",
-    "src": "assets/screenshots/support.jpg",
-    "capturedAt": "2026-10-04",
-    "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
   },
   {
     "id": "freenance",
-    "url": "https://freenance.net/sokujitsu_b",
-    "src": "assets/screenshots/freenance.jpg",
-    "capturedAt": "2026-10-13",
+    "src": "assets/service-cards/freenance.svg",
     "width": 1280,
-    "height": 600
-  },
-  {
-    "id": "safetrust",
-    "url": "https://safe-trust.co.jp/about/",
-    "src": "assets/screenshots/safetrust.jpg",
-    "capturedAt": "2026-10-13",
-    "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
   },
   {
     "id": "betrading",
-    "url": "https://betrading.jp/lp08-3/",
-    "src": "assets/screenshots/betrading.jpg",
-    "capturedAt": "2026-10-13",
+    "src": "assets/service-cards/betrading.svg",
     "width": 1280,
-    "height": 600
+    "height": 600,
+    "kind": "editorial-original"
+  },
+  {
+    "id": "support",
+    "src": "assets/service-cards/support.svg",
+    "width": 1280,
+    "height": 600,
+    "kind": "editorial-original"
+  },
+  {
+    "id": "safetrust",
+    "src": "assets/service-cards/safetrust.svg",
+    "width": 1280,
+    "height": 600,
+    "kind": "editorial-original"
   }
 ]

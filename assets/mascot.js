@@ -181,7 +181,8 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
           if (id === 'amount') {
             const first = company.profile?.firstMax;
             const lines = [`買取金額：${company.amount || '具体的な金額条件は掲載していません。'}`, company.amountNote || ''];
-            if (firstAsked) lines.unshift(Number.isFinite(first) ? `公表の初回上限：${first}万円` : '初回専用の上限額は掲載情報から確認できません。一般の買取範囲が初回にも適用されるとは限らないため、公式窓口で確認してください。');
+            if (firstAsked && company.id==='freenance') lines.unshift('初回も1万円から上限額なしと公表されています。希望額の買取可否は審査によります。');
+            else if (firstAsked) lines.unshift(Number.isFinite(first) ? `公表の初回上限：${first}万円` : '初回専用の上限額は掲載情報から確認できません。一般の買取範囲が初回にも適用されるとは限らないため、公式窓口で確認してください。');
             else if (Number.isFinite(first)) lines.push(`初回上限：${first}万円`);
             if (company.profile?.requirement) lines.push(company.profile.requirement);
             lines.push('買取可否・実際の利用枠は審査や契約条件によります。');

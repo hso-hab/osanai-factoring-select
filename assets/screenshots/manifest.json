@@ -9,10 +9,11 @@
   },
   {
     "id": "trustlyne",
-    "src": "assets/service-cards/trustlyne.svg",
+    "url": "https://trustlyne.jp/",
+    "src": "assets/screenshots/trustlyne.jpg",
+    "capturedAt": "2026-10-04",
     "width": 1280,
-    "height": 600,
-    "kind": "editorial-original"
+    "height": 600
   },
   {
     "id": "ququmo",

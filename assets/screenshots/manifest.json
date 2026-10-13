@@ -48,22 +48,6 @@
     "height": 600
   },
   {
-    "id": "betrading",
-    "url": "https://betrading.jp/",
-    "src": "assets/screenshots/betrading.jpg",
-    "capturedAt": "2026-10-04",
-    "width": 1280,
-    "height": 600
-  },
-  {
-    "id": "olta",
-    "url": "https://www.olta.co.jp/",
-    "src": "assets/screenshots/olta.jpg",
-    "capturedAt": "2026-10-04",
-    "width": 1280,
-    "height": 600
-  },
-  {
     "id": "support",
     "url": "https://chushokigyo-support.or.jp/",
     "src": "assets/screenshots/support.jpg",
@@ -72,10 +56,26 @@
     "height": 600
   },
   {
-    "id": "accel",
-    "url": "https://accelfacter.co.jp/",
-    "src": "assets/screenshots/accel.jpg",
-    "capturedAt": "2026-10-04",
+    "id": "freenance",
+    "url": "https://freenance.net/sokujitsu_b",
+    "src": "assets/screenshots/freenance.jpg",
+    "capturedAt": "2026-10-13",
+    "width": 1280,
+    "height": 600
+  },
+  {
+    "id": "safetrust",
+    "url": "https://safe-trust.co.jp/about/",
+    "src": "assets/screenshots/safetrust.jpg",
+    "capturedAt": "2026-10-13",
+    "width": 1280,
+    "height": 600
+  },
+  {
+    "id": "betrading",
+    "url": "https://betrading.jp/lp08-3/",
+    "src": "assets/screenshots/betrading.jpg",
+    "capturedAt": "2026-10-13",
     "width": 1280,
     "height": 600
   }

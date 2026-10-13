@@ -17,7 +17,7 @@
   if(x.channel==='online'&&d.online!==true)excluded.push('オンライン完結を掲載情報から確認できません');
   if(x.deadline==='today'&&d.sameDay!==true)excluded.push('即日対応の公表を確認できません');
   if(x.buyer!=='unknown'){
-   if(s.id==='olta'&&['sole','individual'].includes(x.buyer))excluded.push('選択した売掛先は公式に対象外と案内されています');
+   if(p.buyerTypesExclusive&&!p.buyerTypes.includes(x.buyer))excluded.push('選択した売掛先は公式に対象外と案内されています');
    else if((s.id==='betrading'&&x.buyer==='sole')||(s.id==='support'&&x.buyer==='individual'))excluded.push('選択した売掛先は公式に対象外と案内されています');
    else if(!p.buyerTypes?.includes(x.buyer))checks.push('売掛先の種類は公式窓口で確認が必要です');
    else reasons.push(`売掛先「${buyerLabels[x.buyer]}」は公表対象に含まれます`);
@@ -25,7 +25,7 @@
   if(excluded.length)return {s,type:'excluded',excluded};
   if(d.amountMin===null||upper===null){checks.push('金額の公表下限または上限が揃っていません');reasons.push(`確認できた金額条件の範囲外ではありません（${x.amount}万円）`)}
   else reasons.push(`請求書${x.amount}万円は公表金額範囲内です`);
-  if(x.first==='first'){if(p.firstMax)reasons.push(`初回上限${p.firstMax}万円以内です`);else checks.push('初回利用だけの上限は別途確認してください')}
+  if(x.first==='first'){if(p.firstMax)reasons.push(`初回上限${p.firstMax}万円以内です`);else if(s.id==='freenance')reasons.push('初回も1万円から上限額なしと公表（買取可否は審査による）');else checks.push('初回利用だけの上限は別途確認してください')}
   if(x.channel!=='all')reasons.push(x.channel==='line'?'LINE完結の公表と一致します':'オンライン対応の公表と一致します');
   if(x.deadline==='today')reasons.push('即日対応の公表があります。ただし本日の入金を保証しません');
   checks.push(p.requirement||s.note);

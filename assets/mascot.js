@@ -162,7 +162,7 @@ window.robotTopics=[{"id":"speed","words":["今日","即日","急ぎ","最短","
     if (safety) return safety;
     if (/^(こんにちは|こんばんは|おはよう|ありがとう|やあ|hello|hi)[！!。]*$/.test(q)) return {answer:'こんにちは！手数料・書類・入金時間など、気になることを聞いてください。会社名を入れると、その会社の掲載情報をご案内できます。',links:[]};
     if (/あなた|aiです|aiなの|人工知能|何ができ|誰|だれ/.test(q)) return {answer:'このサイトに掲載されている情報を照合する案内機能です。自由に会話するAIではありません。手数料・必要書類・入金時間・会社情報や、比較の使い方をご案内します。',links:[['会社一覧を見る','company/']]};
-    const aliases = {trustlyne:['トラストライン','trustline'],ququmo:['ククモ'],paytner:['ペイトナー'],labol:['ラボル'],paytoday:['ペイトゥデイ'],olta:['オルタ'],betrading:['ビートレーディング'],support:['サポート機構'],accel:['アクセルファクター']};
+    const aliases = {trustlyne:['トラストライン','trustline'],ququmo:['ククモ'],paytner:['ペイトナー'],labol:['ラボル'],paytoday:['ペイトゥデイ'],freenance:['フリーナンス'],betrading:['ビートレーディング'],support:['サポート機構'],safetrust:['セーフトラスト','safe trust']};
     const all = typeof services !== 'undefined' ? services : [];
     const companies = all.filter(s => [s.name,s.id,...(aliases[s.id]||[])].some(name => q.includes(normal(name))));
     const feeAsked = /手数料|料率|費用|受取|金利|コスト|料金|安い|高い/.test(q);

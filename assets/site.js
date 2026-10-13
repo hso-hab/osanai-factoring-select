@@ -24,13 +24,13 @@ function spotlight(s,topic='individual'){
   paytner:'少額の請求書や、個人の取引先への請求書に対応。',
   ququmo:'請求書と通帳の2点を中心に申請。法人・個人事業主に対応。',
   paytoday:'法人からフリーランスまでオンラインで申請。手数料の下限・上限を公表。',
-  olta:'個人事業主も対象。請求書の一部買取にも対応。',
+  freenance:'口座開設と即日払いは別の手続き。請求書の一部金額の利用にも対応。',
   labol:'少額の請求書をWebで申請。必要書類や取引内容を確認して申し込めます。',
-  betrading:'個人事業主向けのオンライン窓口を紹介。利用金額によって相談窓口が異なります。',
+  betrading:'受注書・注文書などをもとに納品前の資金化を相談。注文書向けは最短1営業日。',
   support:'個人事業主も相談可能。申込から契約まで非対面で対応。',
-  accel:'個人事業主も対象。利用額・契約方式別の料率表を公開し、オンライン手続きに対応。'
+  safetrust:'法人宛ての請求書が対象。原則20万円以上で、オンライン相談・契約に対応。'
  };
- const feeNotes={paytner:'振込手数料330円別途',paytoday:'オンライン利用時',olta:'諸経費込み'};
+ const feeNotes={paytner:'振込手数料330円別途',paytoday:'オンライン利用時',freenance:'口座不使用時は一律10%'};
  const metrics=s.id==='hso'?[['対象','個人事業主', 'フリーランス'],['サービス','請求書買取',''],['運営','株式会社HSO','']]:[
   ['手数料',s.fee||'個別確認',s.feeNote||'適用料率は公式窓口で確認'],
   ['入金の目安',s.speed,s.speedNote],
@@ -44,9 +44,9 @@ function spotlight(s,topic='individual'){
 function adGroups(items){
  const groups=[
   {id:'individual',icon:'◎',en:'FOR FREELANCERS',title:'個人・フリーランス向け',accent:'green',ids:['hso','trustlyne','paytner'],description:'対象事業者を確認して、働き方に合うサービスを比較。',note:'広告・PR｜ウリモは運営元の自社サービスです。'},
-  {id:'fees',icon:'%',en:'FEE & COST',title:'手数料の条件を見比べる',accent:'orange',ids:['ququmo','paytoday','olta'],description:'下限の数字だけでなく、公表範囲や追加費用の条件まで比較。',note:'公表料率を掲載したサービスの例です。安さの順位ではありません。'},
+  {id:'fees',icon:'%',en:'FEE & COST',title:'手数料の条件を見比べる',accent:'orange',ids:['ququmo','paytoday','freenance'],description:'下限の数字だけでなく、公表範囲や追加費用の条件まで比較。',note:'公表料率を掲載したサービスの例です。安さの順位ではありません。'},
   {id:'small',icon:'¥',en:'SMALL INVOICES',title:'少額からの利用を考える',accent:'blue',ids:['labol','betrading','support'],description:'利用したい金額から、申請下限や対象窓口の条件を確認。',note:'公表下限が3万円以下、または下限設定なしのサービスの例です。'},
-  {id:'online',icon:'↗',en:'ONLINE PROCESS',title:'オンラインで手続きを進める',accent:'green',ids:['accel','ququmo','olta'],description:'来店せずに進めたい方へ。各社の手続きと必要条件を見比べる。',note:'公式にオンライン完結と案内しているサービスの例です。'}
+  {id:'online',icon:'↗',en:'ONLINE PROCESS',title:'オンラインで手続きを進める',accent:'green',ids:['safetrust','ququmo','freenance'],description:'来店せずに進めたい方へ。各社の手続きと必要条件を見比べる。',note:'公式にオンライン完結と案内しているサービスの例です。'}
  ];
  return groups.map(g=>`<section class="ad-category accent-${g.accent}" id="category-${g.id}" aria-labelledby="heading-${g.id}"><div class="purpose-group"><div class="purpose-heading"><div class="ad-category-heading"><div><p>${g.en}</p><h3 id="heading-${g.id}">${g.title}</h3></div></div><p class="ad-category-description">${g.description}</p><span class="purpose-companies">${g.ids.map(id=>esc(items.find(s=>s.id===id).name)).join('・')}</span></div><div class="purpose-content"><p class="ad-disclaimer">${g.note} 適用料率・買取可否・入金時間は審査や契約条件によります。</p><div class="ad-grid">${g.ids.map(id=>spotlight(items.find(s=>s.id===id),g.id)).join('')}</div><div class="compact-category-footer"><a href="/company/?compare=${g.ids.filter(id=>id!=='hso').join(',')}#compare">この候補の条件を比較 →</a></div></div></div></section>`).join('');
 }
@@ -57,7 +57,7 @@ function purposeGuide(items){
  const groups=[
   {title:'個人向けのサービスを探す',symbol:'◎',purpose:'specialist',ids:['hso','trustlyne','paytner'],field:'audience',note:null,link:'個人・フリーランス中心で絞る'},
   {title:'少額からの利用を考える',symbol:'¥',purpose:'small',ids:['trustlyne','labol','paytner'],field:'amount',note:'amountNote',link:'公表下限3万円以下で絞る'},
-  {title:'手数料の条件を見比べる',symbol:'%',purpose:'fee',ids:['ququmo','paytoday','olta'],field:'fee',note:'feeNote',link:'公表の下限料率順で見る'},
+  {title:'手数料の条件を見比べる',symbol:'%',purpose:'fee',ids:['ququmo','paytoday','freenance'],field:'fee',note:'feeNote',link:'公表の下限料率順で見る'},
   {title:'LINEで手続きを進めたい',symbol:'↗',purpose:'line',ids:['trustlyne'],field:'channel',note:null,link:'LINE完結のサービスを見る'}
  ];
  return groups.map(g=>`<article class="purpose-guide-card"><h3><span aria-hidden="true">${g.symbol}</span>${g.title}</h3><ul>${g.ids.map(id=>{const s=items.find(s=>s.id===id);return `<li><button data-detail="${s.id}"><b>${esc(s.name)}${s.id==='hso'?'<small class="own-pr">自社PR</small>':''}</b><span>${esc(s[g.field])}${g.note&&s[g.note]?`<small>${esc(s[g.note])}</small>`:''}</span><i aria-hidden="true">↗</i></button></li>`}).join('')}</ul>${g.purpose==='line'?'<p class="purpose-context">対応サービスを確認してから、詳しい条件と出典へ。LINEの受付時間と審査・振込の時間は区別して確認しましょう。</p>':''}<button class="purpose-guide-more" data-jump-purpose="${g.purpose}">${g.link}<span>→</span></button></article>`).join('');
